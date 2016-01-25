@@ -1,0 +1,8 @@
+'.platform-darwin atom-text-editor[data-grammar~=python]:not(.mini)':
+  'alt-cmd-g': 'goto-definition:go'
+
+'.platform-linux atom-text-editor[data-grammar~=python]:not(.mini)':
+  'ctrl-alt-g': 'goto-definition:go'
+
+'.platform-win32 atom-text-editor[data-grammar~=python]:not(.mini)':
+  'ctrl-alt-g': 'goto-definition:go'

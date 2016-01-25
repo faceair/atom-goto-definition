@@ -1,0 +1,30 @@
+{
+  "name": "atom-goto-definition",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/goto-definition",
+  "activationCommands": {
+    "atom-workspace": [
+      "goto-definition:go"
+    ]
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faceair/atom-goto-definition.git"
+  },
+  "author": "faceair",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "bugs": {
+    "url": "https://github.com/faceair/atom-goto-definition/issues"
+  },
+  "homepage": "https://github.com/faceair/atom-goto-definition#readme"
+}
