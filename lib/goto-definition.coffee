@@ -32,14 +32,18 @@ module.exports =
         paths = [project_name, '*']
 
     atom.workspace.scan regex, {paths: paths}, (result, error) =>
-      items = @definitionsView.items ? []
-      for match in result.matches
-        items.push
+      items = result.matches.map (match) ->
+        return {
           text: match.lineText
           fileName: result.filePath
           line: match.range[0][0]
           column: match.range[0][1]
-      @definitionsView.setItems(items)
+        }
+
+      if (@definitionsView.items ? []).length is 0
+        @definitionsView.setItems(items)
+      else
+        @definitionsView.addItems(items)
     .then =>
       items = @definitionsView.items ? []
       switch items.length

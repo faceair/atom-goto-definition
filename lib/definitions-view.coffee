@@ -1,6 +1,6 @@
 # fork from https://github.com/sadovnychyi/autocomplete-python/blob/master/lib/definitions-view.coffee
 
-{$$, SelectListView} = require 'atom-space-pen-views'
+{$, $$, SelectListView} = require 'atom-space-pen-views'
 path = require 'path'
 
 module.exports =
@@ -24,6 +24,13 @@ class DefinitionsView extends SelectListView
       @li class: 'two-lines', =>
         @div "#{text}", class: 'primary-line'
         @div "#{relativePath}, line #{line + 1}", class: 'secondary-line'
+
+  addItems: (items) ->
+    for item in items
+      @items.push item
+      itemView = $(@viewForItem(item))
+      itemView.data('select-list-item', item)
+      @list.append(itemView)
 
   getFilterKey: -> 'fileName'
 
