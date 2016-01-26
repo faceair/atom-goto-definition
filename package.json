@@ -1,5 +1,5 @@
 {
-  "name": "atom-goto-definition",
+  "name": "goto-definition",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/goto-definition",
