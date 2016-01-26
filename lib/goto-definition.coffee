@@ -5,11 +5,11 @@ DefinitionsView = require './definitions-view.coffee'
 module.exports =
   activate: (state) ->
     atom.commands.add 'atom-text-editor', 'goto-definition:go', =>
-      @goToDefinition()
+      @go()
 
   deactivate: ->
 
-  goToDefinition: (editor) ->
+  go: (editor) ->
     if not editor
       editor = atom.workspace.getActiveTextEditor()
     if @definitionsView
