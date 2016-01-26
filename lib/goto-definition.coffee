@@ -21,7 +21,7 @@ module.exports =
 
     switch grammar.name
       when "CoffeeScript"
-        regex = new RegExp("class\\s+\\s+(extends)?|#{word}\\s*[:=]\\s*(\\(.*\\))?\\s*[=-]>", 'i')
+        regex = new RegExp("class\\s+#{word}\\s+(extends)?|#{word}\\s*[:=]\\s*(\\(.*\\))?\\s*[=-]>", 'i')
       when "Python"
         regex = new RegExp("class\\s+#{word}\\s*\\(|def\\s+#{word}\\s*\\(", 'i')
       else
