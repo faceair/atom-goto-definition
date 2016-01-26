@@ -1,5 +1,3 @@
-{CompositeDisposable} = require 'atom'
-
 DefinitionsView = require './definitions-view.coffee'
 
 module.exports =
@@ -19,15 +17,25 @@ module.exports =
     word = editor.getWordUnderCursor()
     grammar = editor.getGrammar()
 
+    file_path = editor.getPath()
+    for path in atom.project.getPaths()
+      if file_path.indexOf(path) is 0
+        matches = /\/([^\/]+)$/.exec path
+        project_path = matches[1]
+        break
+
     switch grammar.name
       when "CoffeeScript"
         regex = new RegExp("class\\s+#{word}\\s+(extends)?|#{word}\\s*[:=]\\s*(\\(.*\\))?\\s*[=-]>", 'i')
+        paths = ['*.coffee', project_path]
       when "Python"
         regex = new RegExp("class\\s+#{word}\\s*\\(|def\\s+#{word}\\s*\\(", 'i')
+        paths = ['*.py', project_path]
       else
         regex = new RegExp(word, 'i')
+        paths = ['*', project_path]
 
-    atom.workspace.scan regex, {paths: ['*']}, (result, error) =>
+    atom.workspace.scan regex, {paths: paths}, (result, error) =>
       items = @definitionsView.items ? []
       for match in result.matches
         items.push
