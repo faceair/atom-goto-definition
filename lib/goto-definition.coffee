@@ -17,7 +17,17 @@ module.exports =
     @definitionsView = new DefinitionsView()
 
     word = editor.getWordUnderCursor()
-    atom.workspace.scan new RegExp(word), {paths: ['*']}, (result, error) =>
+    grammar = editor.getGrammar()
+
+    switch grammar.name
+      when "CoffeeScript"
+        regex = new RegExp("class\\s+\\s+(extends)?|#{word}\\s*[:=]\\s*(\\(.*\\))?\\s*[=-]>", 'i')
+      when "Python"
+        regex = new RegExp("class\\s+#{word}\\s*\\(|def\\s+#{word}\\s*\\(", 'i')
+      else
+        regex = new RegExp(word, 'i')
+
+    atom.workspace.scan regex, {paths: ['*']}, (result, error) =>
       items = @definitionsView.items ? []
       for match in result.matches
         items.push
@@ -28,5 +38,8 @@ module.exports =
       @definitionsView.setItems(items)
     .then =>
       items = @definitionsView.items ? []
-      if items.length is 1
-        @definitionsView.confirmed(items[0])
+      switch items.length
+        when 0
+          @definitionsView.setItems(items)
+        when 1
+          @definitionsView.confirmed(items[0])
