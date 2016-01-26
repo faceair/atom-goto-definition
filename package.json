@@ -1,7 +1,7 @@
 {
   "name": "goto-definition",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Goto definition.",
   "main": "./lib/goto-definition",
   "activationCommands": {
     "atom-workspace": [
