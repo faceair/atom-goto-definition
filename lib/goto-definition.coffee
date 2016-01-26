@@ -14,7 +14,7 @@ module.exports =
       @definitionsView.destroy()
     @definitionsView = new DefinitionsView()
 
-    word = editor.getWordUnderCursor()
+    word = editor.getWordUnderCursor().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
     grammar = editor.getGrammar()
 
     [project_path] = atom.project.relativizePath(editor.getPath())
