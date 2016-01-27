@@ -1,5 +1,6 @@
 DefinitionsView = require './definitions-view.coffee'
-ConfigWrap = require './config-wrap.coffee'
+config = require './config.coffee'
+
 module.exports =
   activate: (state) ->
     atom.commands.add 'atom-text-editor', 'goto-definition:go', =>
@@ -7,15 +8,30 @@ module.exports =
 
   deactivate: ->
 
-  go: (editor) ->
-    if not editor
-      editor = atom.workspace.getActiveTextEditor()
+  getScanOptions: ->
+    editor = atom.workspace.getActiveTextEditor()
+
+    [project_path] = atom.project.relativizePath(editor.getPath())
+    [_, project_name] = /\/([^\/]+)$/.exec project_path
+
+    word = editor.getWordUnderCursor().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    grammar_name = editor.getGrammar().name
+
+    scan_config = config[grammar_name] ? config['General']
+    regex = scan_config['regex'].join('|').replace(/{word}/g, word)
+    paths = [project_name, scan_config['type']]
+
+    return {
+      regex: new RegExp(regex, 'i')
+      paths: paths
+    }
+
+  go: ->
     if @definitionsView
       @definitionsView.destroy()
     @definitionsView = new DefinitionsView()
 
-    config = new ConfigWrap(editor)
-    {regex, paths} = config.getScanningParams()
+    {regex, paths} = @getScanOptions()
 
     atom.workspace.scan regex, paths, (result, error) =>
       items = result.matches.map (match) ->
