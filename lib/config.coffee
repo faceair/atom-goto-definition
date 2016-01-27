@@ -4,7 +4,7 @@ module.exports =
       "{word}\\s*=\\s*function\\("
       "function\\s*{word}\\s*\\("
     ]
-    type: "*.js"
+    type: ["*.js"]
 
   CoffeeScript:
     regex: [
@@ -13,14 +13,14 @@ module.exports =
       "{word}\\s*=\\s*function\\(" # JavaScript Function
       "function\\s*{word}\\s*\\("
     ]
-    type: "*.coffee"
+    type: ["*.coffee", "*.js"]
 
   Python:
     regex: [
       "class\\s+{word}\\s*\\("
       "def\\s+{word}\\s*\\("
     ]
-    type: "*.py"
+    type: ["*.py"]
 
   PHP:
     regex: [
@@ -31,4 +31,4 @@ module.exports =
 
   General:
     regex: ["{word}"]
-    type: "*"
+    type: ["*"]
