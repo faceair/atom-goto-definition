@@ -1,7 +1,7 @@
 module.exports =
   JavaScript:
     regex: [
-      "{word}\\s*=\\s*function\\("
+      "(^|\\s|\\.){word}\\s*=\\s*function\\s*\\("
       "function\\s*{word}\\s*\\("
     ]
     type: ["*.js"]
@@ -10,7 +10,7 @@ module.exports =
     regex: [
       "class\\s+{word}\\s*(extends)?"
       "{word}\\s*[:=]\\s*(\\(.*\\))?\\s*[=-]>"
-      "{word}\\s*=\\s*function\\(" # JavaScript Function
+      "(^|\\s|\\.){word}\\s*=\\s*function\\s*\\(" # JavaScript Function
       "function\\s*{word}\\s*\\("
     ]
     type: ["*.coffee", "*.js"]
