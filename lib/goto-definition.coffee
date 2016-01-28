@@ -19,7 +19,7 @@ module.exports =
 
     scan_options = JSON.parse(JSON.stringify(config[grammar_name] ? config['General']))
     regex = scan_options['regex'].join('|').replace(/{word}/g, word)
-    paths = scan_options['type'].push project_name
+    paths = scan_options['type'].concat project_name
 
     return {
       regex: new RegExp(regex, 'i')
