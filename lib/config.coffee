@@ -27,7 +27,7 @@ module.exports =
       "class\\s+{word}\\s*(extends)?\\s*(implements)?"
       "(static)?\\s*(public|private|protected)?\\s*(static)?\\s*function\\s+{word}\\s*\\("
     ]
-    type: "*.php"
+    type: ["*.php"]
 
   General:
     regex: ["{word}"]
