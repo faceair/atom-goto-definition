@@ -9,7 +9,7 @@ module.exports =
   CoffeeScript:
     regex: [
       "class\\s+{word}\\s*(extends)?"
-      "{word}\\s*[:=]\\s*(\\(.*\\))?\\s*[=-]>"
+      "(^|\\s|\\.){word}\\s*[:=]\\s*(\\(.*\\))?\\s*[=-]>"
       "(^|\\s|\\.){word}\\s*=\\s*function\\s*\\(" # JavaScript Function
       "function\\s*{word}\\s*\\("
     ]
