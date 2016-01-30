@@ -2,23 +2,23 @@ module.exports =
   JavaScript:
     regex: [
       "(^|\\s|\\.){word}\\s*=\\s*function\\s*\\("
-      "function\\s*{word}\\s*\\("
+      "(^|\\s)function\\s*{word}\\s*\\("
     ]
     type: ["*.js"]
 
   CoffeeScript:
     regex: [
-      "class\\s+{word}\\s*(extends)?"
+      "(^|\\s)class\\s+{word}\\s*(extends)?"
       "(^|\\s|\\.){word}\\s*[:=]\\s*(\\(.*\\))?\\s*[=-]>"
       "(^|\\s|\\.){word}\\s*=\\s*function\\s*\\(" # JavaScript Function
-      "function\\s*{word}\\s*\\("
+      "(^|\\s)function\\s*{word}\\s*\\("
     ]
     type: ["*.coffee", "*.js"]
 
   Python:
     regex: [
-      "class\\s+{word}\\s*\\("
-      "def\\s+{word}\\s*\\("
+      "(^|\\s)class\\s+{word}\\s*\\("
+      "(^|\\s)def\\s+{word}\\s*\\("
     ]
     type: ["*.py"]
 
