@@ -33,7 +33,7 @@ module.exports =
 
     {regex, paths} = @getScanOptions()
 
-    atom.workspace.scan regex, paths, (result, error) =>
+    atom.workspace.scan regex, {paths}, (result, error) =>
       items = result.matches.map (match) ->
         return {
           text: match.lineText
