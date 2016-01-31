@@ -30,5 +30,5 @@ module.exports =
     type: ["*.php"]
 
   General:
-    regex: ["{word}"]
+    regex: ["(^|\\s|\\.){word}(\\s|{|\\(|=|:|$)"]
     type: ["*"]
