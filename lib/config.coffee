@@ -8,7 +8,7 @@ module.exports =
 
   CoffeeScript:
     regex: [
-      "(^|\\s)class\\s+{word}\\s*(extends\\s+\\S+\\s*)?$"
+      "(^|\\s)class\\s+{word}(\\s|$)"
       "(^|\\s|\\.){word}\\s*[:=]\\s*(\\([\\s\\S]*?\\))?\\s*[=-]>"
       "(^|\\s|\\.){word}\\s*=\\s*function\\s*\\(" # JavaScript Function
       "(^|\\s)function\\s+{word}\\s*\\("
@@ -24,7 +24,7 @@ module.exports =
 
   PHP:
     regex: [
-      "(^|\\s)class\\s+{word}\\s*((extends|implements)\\s+\\S+\\s*)?({\\s*)?$"
+      "(^|\\s)class\\s+{word}(\\s|{|$)"
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
     type: ["*.php"]
