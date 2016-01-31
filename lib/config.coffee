@@ -17,7 +17,7 @@ module.exports =
 
   Python:
     regex: [
-      "(^|\\s)class\\s+{word}\\s+\\("
+      "(^|\\s)class\\s+{word}\\s*\\("
       "(^|\\s)def\\s+{word}\\s*\\("
     ]
     type: ["*.py"]
