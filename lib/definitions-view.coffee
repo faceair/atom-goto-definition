@@ -41,6 +41,7 @@ class DefinitionsView extends SelectListView
       super
 
   confirmed: ({fileName, line, column}) ->
+    return unless @panel?.visible
     @cancelPosition = null
     @cancel()
     promise = atom.workspace.open(fileName)
