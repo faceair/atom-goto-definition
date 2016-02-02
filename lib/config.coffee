@@ -29,6 +29,7 @@ module.exports =
   PHP:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|{|$)"
+      "(^|\\s)interface\\s+{word}(\\s|{|$)"
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
     type: ["*.php"]
@@ -36,8 +37,10 @@ module.exports =
   Ruby:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|$)"
+      "(^|\\s)module\\s+{word}(\\s|$)"
       "(^|\\s)def\\s+{word}\\s*\\("
     ]
+    type: ["*.rb"]
 
   General:
     regex: ["(^|\\s|\\.){word}(\\s|{|\\(|=|:|$)"]
