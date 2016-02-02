@@ -29,6 +29,12 @@ module.exports =
     ]
     type: ["*.php"]
 
+  Ruby:
+    regex: [
+      "(^|\\s)class\\s+{word}(\\s|$)"
+      "(^|\\s)def\\s+{word}\\s*\\("
+    ]
+
   General:
     regex: ["(^|\\s|\\.){word}(\\s|{|\\(|=|:|$)"]
     type: ["*"]
