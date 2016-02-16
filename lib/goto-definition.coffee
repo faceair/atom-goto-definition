@@ -2,9 +2,21 @@ DefinitionsView = require './definitions-view.coffee'
 config = require './config.coffee'
 
 module.exports =
-  activate: (state) ->
-    atom.commands.add 'atom-text-editor', 'goto-definition:go', =>
+  activate: ->
+    atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', =>
       @go()
+
+    atom.contextMenu.add
+      'atom-workspace atom-text-editor:not(.mini)': [
+        {
+          label: 'Goto Definition',
+          command: 'goto-definition:go'
+        },
+        {
+          type: 'separator'
+        }
+      ]
+    atom.contextMenu.itemSets.unshift(atom.contextMenu.itemSets.pop())
 
   deactivate: ->
 

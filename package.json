@@ -3,11 +3,6 @@
   "version": "1.1.9",
   "description": "Goto definition.",
   "main": "./lib/goto-definition",
-  "activationCommands": {
-    "atom-workspace": [
-      "goto-definition:go"
-    ]
-  },
   "dependencies": {
     "atom-space-pen-views": "^2.1.1"
   },
