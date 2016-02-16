@@ -1,0 +1,22 @@
+'context-menu':
+  'atom-workspace atom-text-editor:not(.mini)': [
+    {
+      label: 'Goto Definition',
+      command: 'goto-definition:go'
+    }
+  ]
+
+'menu': [
+  {
+    label: 'Packages'
+    submenu: [
+        label: 'Goto Definition',
+        submenu: [
+              {
+                label: 'Go'
+                command: 'goto-definition:go'
+              }
+          ]
+      ]
+  }
+]

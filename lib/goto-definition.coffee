@@ -12,7 +12,8 @@ module.exports =
     editor = atom.workspace.getActiveTextEditor()
 
     [project_path] = atom.project.relativizePath(editor.getPath())
-    [_, project_name] = /[\/\\]([^\/^\\]+)$/.exec project_path
+    name_matches = /[\/\\]([^\/^\\]+)$/.exec project_path
+    project_name = if name_matches then name_matches[1] else '*'
 
     word = editor.getWordUnderCursor().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
     grammar_name = editor.getGrammar().name
