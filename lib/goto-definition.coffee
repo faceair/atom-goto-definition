@@ -2,21 +2,39 @@ DefinitionsView = require './definitions-view.coffee'
 config = require './config.coffee'
 
 module.exports =
+  config:
+    rightMenuDisplayAtFirst:
+      type: 'boolean'
+      default: true
+
+  firstMenu:
+    'atom-workspace atom-text-editor:not(.mini)': [
+      {
+        label: 'Goto Definition',
+        command: 'goto-definition:go'
+      },
+      {
+        type: 'separator'
+      }
+    ]
+
+  normalMenu:
+    'atom-workspace atom-text-editor:not(.mini)': [
+      {
+        label: 'Goto Definition',
+        command: 'goto-definition:go'
+      }
+    ]
+
   activate: ->
     atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', =>
       @go()
 
-    atom.contextMenu.add
-      'atom-workspace atom-text-editor:not(.mini)': [
-        {
-          label: 'Goto Definition',
-          command: 'goto-definition:go'
-        },
-        {
-          type: 'separator'
-        }
-      ]
-    atom.contextMenu.itemSets.unshift(atom.contextMenu.itemSets.pop())
+    if atom.config.get('goto-definition.rightMenuDisplayAtFirst')
+      atom.contextMenu.add @firstMenu
+      atom.contextMenu.itemSets.unshift(atom.contextMenu.itemSets.pop())
+    else
+      atom.contextMenu.add @normalMenu
 
   deactivate: ->
 
