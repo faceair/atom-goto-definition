@@ -66,12 +66,21 @@ module.exports =
 
     atom.workspace.scan regex, {paths}, (result, error) =>
       items = result.matches.map (match) ->
-        return {
-          text: match.lineText
-          fileName: result.filePath
-          line: match.range[0][0]
-          column: match.range[0][1]
-        }
+        if Array.isArray(match.range)
+          return {
+            text: match.lineText
+            fileName: result.filePath
+            line: match.range[0][0]
+            column: match.range[0][1]
+          }
+        else
+          lines = match.match.input.substring(0, match.match.index).split(/\r\n|\r|\n/)
+          item = {
+            text: match.matchText
+            fileName: result.filePath
+            line: lines.length - 1
+            column: lines.pop().length + 1
+          }
 
       if (@definitionsView.items ? []).length is 0
         @definitionsView.setItems(items)
