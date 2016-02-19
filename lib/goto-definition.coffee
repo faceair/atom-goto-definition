@@ -79,7 +79,7 @@ module.exports =
             text: match.lineText
             fileName: result.filePath
             line: lines.length - 1
-            column: lines.pop().length + 1
+            column: lines.pop().length
           }
 
       if (@definitionsView.items ? []).length is 0
