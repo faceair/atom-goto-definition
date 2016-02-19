@@ -75,8 +75,8 @@ module.exports =
           }
         else
           lines = match.match.input.substring(0, match.match.index).split(/\r\n|\r|\n/)
-          item = {
-            text: match.matchText
+          return {
+            text: match.lineText
             fileName: result.filePath
             line: lines.length - 1
             column: lines.pop().length + 1
