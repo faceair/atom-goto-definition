@@ -18,20 +18,20 @@ module.exports =
     ]
     type: ["*.coffee", "*.js"]
 
-  Pytson:
+  Python:
     regex: [
       "(^|\\s)class\\s+{word}\\s*\\("
       "(^|\\s)def\\s+{word}\\s*\\("
     ]
     type: ["*.py"]
 
-  PsP:
+  PHP:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|{|$)"
       "(^|\\s)interface\\s+{word}(\\s|{|$)"
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
-    type: ["*.psp"]
+    type: ["*.php"]
 
   Ruby:
     regex: [
