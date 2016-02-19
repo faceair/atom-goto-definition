@@ -74,11 +74,20 @@ module.exports =
             column: match.range[0][1]
           }
         else
+          if /\s/.test(match.match.input.charAt(match.match.index))
+            start_position = match.match.index + 1
+          else
+            start_position = match.match.index
+
+          all_lines = match.match.input.split(/\r\n|\r|\n/)
+          lines = match.match.input.substring(0, start_position).split(/\r\n|\r|\n/)
+          line_number = lines.length - 1
+
           return {
-            text: match.lineText
+            text: all_lines[line_number]
             fileName: result.filePath
-            line: match.range.start.row
-            column: match.range.start.column
+            line: line_number
+            column: lines.pop().length
           }
 
       if (@definitionsView.items ? []).length is 0
