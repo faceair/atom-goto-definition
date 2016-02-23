@@ -1,7 +1,7 @@
 module.exports =
   JavaScript:
     regex: [
-      "(^|\\s|\\.){word}\\s*=\\s*function\\s*\\("
+      "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\("
       "(^|\\s)function\\s+{word}\\s*\\("
       "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
       "(^|\\s)class\\s+{word}(\\s|$)"
@@ -12,7 +12,7 @@ module.exports =
     regex: [
       "(^|\\s)class\\s+{word}(\\s|$)"
       "(^|\\s|\\.){word}\\s*[:=]\\s*(\\([\\s\\S]*?\\))?\\s*[=-]>"
-      "(^|\\s|\\.){word}\\s*=\\s*function\\s*\\(" # JavaScript Function
+      "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\(" # JavaScript Function
       "(^|\\s)function\\s+{word}\\s*\\("
       "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
     ]
