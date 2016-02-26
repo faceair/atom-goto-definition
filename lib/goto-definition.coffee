@@ -45,7 +45,7 @@ module.exports =
     name_matches = /[\/\\]([^\/^\\]+)$/.exec project_path
     project_name = if name_matches then name_matches[1] else '*'
 
-    word = editor.getWordUnderCursor().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    word = (editor.getSelectedText() ? editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
     grammar_name = editor.getGrammar().name
 
     scan_options = JSON.parse(JSON.stringify(config[grammar_name] ? config['General']))
