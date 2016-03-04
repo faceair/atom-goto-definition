@@ -48,21 +48,26 @@ module.exports =
     word = (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
     grammar_name = editor.getGrammar().name
 
-    scan_options = JSON.parse(JSON.stringify(config[grammar_name] ? config['General']))
-    regex = scan_options.regex.join('|').replace(/{word}/g, word)
-    paths = scan_options.type.concat project_name
+    if config[grammar_name]
+      scan_options = JSON.parse(JSON.stringify(config[grammar_name]))
+      regex = scan_options.regex.join('|').replace(/{word}/g, word)
+      paths = scan_options.type.concat project_name
 
-    return {
-      regex: new RegExp(regex, 'i')
-      paths: paths
-    }
+      return {
+        regex: new RegExp(regex, 'i')
+        paths: paths
+      }
+    else
+      return {}
 
   go: ->
+    {regex, paths} = @getScanOptions()
+    unless regex
+      return atom.notifications.addWarning('Language not support')
+
     if @definitionsView
       @definitionsView.destroy()
     @definitionsView = new DefinitionsView()
-
-    {regex, paths} = @getScanOptions()
 
     atom.workspace.scan regex, {paths}, (result, error) =>
       items = result.matches.map (match) ->

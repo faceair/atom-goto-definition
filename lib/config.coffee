@@ -40,7 +40,3 @@ module.exports =
       "(^|\\s)def\\s+{word}\\s*\\("
     ]
     type: ["*.rb"]
-
-  General:
-    regex: ["(^|\\s|\\.){word}(\\s|{|\\(|=|:|$)"]
-    type: ["*"]
