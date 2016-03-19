@@ -63,7 +63,7 @@ module.exports =
   go: ->
     {regex, paths} = @getScanOptions()
     unless regex
-      return atom.notifications.addWarning('Language not support')
+      return atom.notifications.addWarning('This language is not supported.')
 
     if @definitionsView
       @definitionsView.destroy()
