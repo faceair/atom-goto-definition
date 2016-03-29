@@ -46,6 +46,7 @@ module.exports =
     regex: [
       "(^|\\s)class\\s+{word}(\\s|$)"
       "(^|\\s)module\\s+{word}(\\s|$)"
-      "(^|\\s)def\\s+{word}\\s*\\("
+      "(^|\\s)def\\s+(?:self\\.)?{word}\\s*\\(?"
+      "(^|\\s)define_method\\s+:?{word}\\s*\\(?"
     ]
     type: ["*.rb"]
