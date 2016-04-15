@@ -63,7 +63,7 @@ module.exports =
   go: ->
     {regex, paths} = @getScanOptions()
     unless regex
-      return atom.notifications.addWarning('This language is not supported 😌. Welcome PR 👏.')
+      return atom.notifications.addWarning('This language is not supported . Pull Request Welcome 👏.')
 
     if @definitionsView
       @definitionsView.destroy()
