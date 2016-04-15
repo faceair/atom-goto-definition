@@ -50,3 +50,11 @@ module.exports =
       "(^|\\s)define_method\\s+:?{word}\\s*\\(?"
     ]
     type: ["*.rb"]
+
+  KRL:
+    regex: [
+      "(^|\\s)DEF\\s+{word}\\s*\\("
+      "(^|\\s)DECL\\s+\\w*?{word}\\s*\\=?"
+      "(^|\\s)(SIGNAL|INT|BOOL|REAL|STRUC|CHAR|ENUM|EXT|\\s)\\s*\\w*{word}.*"
+    ]
+    type: ["*.src","*.dat"]
