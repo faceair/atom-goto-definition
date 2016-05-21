@@ -46,19 +46,28 @@ module.exports =
     project_name = if name_matches then name_matches[1] else '*'
 
     word = (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-    grammar_name = editor.getGrammar().name
+    file_extension = "*." + editor.getPath().split('.').pop()
 
-    if config[grammar_name]
-      scan_options = JSON.parse(JSON.stringify(config[grammar_name]))
-      regex = scan_options.regex.join('|').replace(/{word}/g, word)
-      paths = scan_options.type.concat project_name
+    scan_regex = []
+    scan_paths = []
+    for grammar_name, grammar_option of config
+      if grammar_option.type.indexOf(file_extension) isnt -1
+        scan_regex.push.apply(scan_regex, grammar_option.regex)
+        scan_paths.push.apply(scan_paths, grammar_option.type)
 
-      return {
-        regex: new RegExp(regex, 'i')
-        paths: paths
-      }
-    else
+    if scan_regex.length == 0
       return {}
+
+    scan_regex = scan_regex.filter (e, i, arr) -> arr.lastIndexOf(e) is i
+    scan_paths = scan_paths.filter (e, i, arr) -> arr.lastIndexOf(e) is i
+
+    regex = scan_regex.join('|').replace(/{word}/g, word)
+    paths = scan_paths.concat project_name
+
+    return {
+      regex: new RegExp(regex, 'i')
+      paths: paths
+    }
 
   go: ->
     {regex, paths} = @getScanOptions()

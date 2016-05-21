@@ -1,13 +1,4 @@
 module.exports =
-  JavaScript:
-    regex: [
-      "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\("
-      "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
-      "(^|\\s)class\\s+{word}(\\s|$)"
-    ]
-    type: ["*.js"]
-
   'JavaScript (JSX)':
     regex: [
       "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\("
