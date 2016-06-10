@@ -6,7 +6,7 @@ module.exports =
       "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
       "(^|\\s)class\\s+{word}(\\s|$)"
     ]
-    type: ["*.jsx", "*.js"]
+    type: ["*.jsx", "*.js", "*.html"]
 
   CoffeeScript:
     regex: [
@@ -16,7 +16,7 @@ module.exports =
       "(^|\\s)function\\s+{word}\\s*\\("
       "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
     ]
-    type: ["*.coffee", "*.js"]
+    type: ["*.coffee", "*.js", "*.html"]
 
   Python:
     regex: [
