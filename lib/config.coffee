@@ -18,6 +18,16 @@ module.exports =
     ]
     type: ["*.coffee", "*.js", "*.html"]
 
+  TypeScript:
+    regex: [
+      "(^|\\s)class\\s+{word}(\\s|$)"
+      "(^|\\s|\\.){word}\\s*[:=]\\s*(\\([\\s\\S]*?\\))?\\s*[=-]>"
+      "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\(" # JavaScript Function
+      "(^|\\s)function\\s+{word}\\s*\\("
+      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
+    ]
+    type: ["*.ts", "*.html"]
+
   Python:
     regex: [
       "(^|\\s)class\\s+{word}\\s*\\("
