@@ -67,3 +67,10 @@ module.exports =
       "(^|\\s)(SIGNAL|INT|BOOL|REAL|STRUC|CHAR|ENUM|EXT|\\s)\\s*\\w*{word}.*"
     ]
     type: ["*.src","*.dat"]
+
+  Perl:
+    regex: [
+      "(^|\\s)sub\\s+{word}\\s*\\{"
+      "(^|\\s)package\\s+(\\w+::)*{word}\\s*\\;"
+    ]
+    type: ["*.pm","*.pl"]
