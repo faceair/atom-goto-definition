@@ -41,10 +41,6 @@ module.exports =
   getScanOptions: ->
     editor = atom.workspace.getActiveTextEditor()
 
-    [project_path] = atom.project.relativizePath(editor.getPath())
-    name_matches = /[\/\\]([^\/^\\]+)$/.exec project_path
-    project_name = if name_matches then name_matches[1] else '*'
-
     word = (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
     file_extension = "*." + editor.getPath().split('.').pop()
 
@@ -62,11 +58,10 @@ module.exports =
     scan_paths = scan_paths.filter (e, i, arr) -> arr.lastIndexOf(e) is i
 
     regex = scan_regex.join('|').replace(/{word}/g, word)
-    paths = scan_paths.concat project_name
 
     return {
       regex: new RegExp(regex, 'i')
-      paths: paths
+      paths: scan_paths
     }
 
   go: ->
