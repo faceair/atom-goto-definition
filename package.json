@@ -14,7 +14,7 @@
     "url": "git+https://github.com/faceair/atom-goto-definition.git"
   },
   "author": "faceair",
-  "license": "MIT",
+  "license": "GPL",
   "engines": {
     "atom": ">0.50.0"
   },
