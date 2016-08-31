@@ -60,6 +60,12 @@ module.exports =
     ]
     type: ["*.rb"]
 
+  Puppet:
+    regex: [
+      "(^|\\s)class\\s+{word}(\\s|$)"
+    ]
+    type: ["*.pp"]
+
   KRL:
     regex: [
       "(^|\\s)DEF\\s+{word}\\s*\\("
