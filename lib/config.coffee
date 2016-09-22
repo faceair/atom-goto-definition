@@ -73,4 +73,4 @@ module.exports =
       "(^|\\s)sub\\s+{word}\\s*\\{"
       "(^|\\s)package\\s+(\\w+::)*{word}\\s*\\;"
     ]
-    type: ["*.pm","*.pl"]
+    type: ["*.pm","*.pl",".t"]
