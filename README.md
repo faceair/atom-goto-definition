@@ -6,6 +6,12 @@
 * Works with Mac OSX, Linux and Windows
 * Goto-Definition functionality, by default on `Alt+Cmd+Enter`/`Ctrl+Alt+Enter`
 
+## Installing
+Install the package ```goto-definition``` in Atom (Preferences->Install) or use Atom's package manager from a shell:  
+```
+$ apm install goto-definition
+```
+
 ### Notice
 
 * If you want include VCS ignored paths, please turn `Settings -> Exclude VCS Ignored Paths` option off.
