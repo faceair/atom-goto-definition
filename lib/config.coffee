@@ -42,6 +42,12 @@ module.exports =
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
     type: ["*.php"]
+  
+  ASP:
+    regex: [
+      "(^|\\s)(function|sub)\\s+{word}\\s*\\("
+    ]
+    type: ["*.asp"]
     
   Hack:
     regex: [
