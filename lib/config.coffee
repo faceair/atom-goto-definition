@@ -41,7 +41,7 @@ module.exports =
       "(^|\\s)interface\\s+{word}(\\s|{|$)"
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
-    type: ["*.php"]
+    type: ["*.php", "*.phtml"]
     
   Hack:
     regex: [
