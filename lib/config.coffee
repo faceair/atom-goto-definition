@@ -8,6 +8,15 @@ module.exports =
     ]
     type: ["*.jsx", "*.js", "*.html"]
 
+  BrightScript:
+    regex: [
+      "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\("
+      "(^|\\s|\\.){word}\\s*[:=]\\s*sub\\s*\\("
+      "(^|\\s)function\\s+{word}\\s*\\("
+      "(^|\\s)sub\\s+{word}\\s*\\("
+    ]
+    type: ["*.brs"]
+
   CoffeeScript:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|$)"
