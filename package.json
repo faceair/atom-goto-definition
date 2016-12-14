@@ -1,5 +1,5 @@
 {
-  "name": "goto-definition",
+  "name": "atom-goto-definition-with-brightscript",
   "version": "1.1.19",
   "description": "Goto definition.",
   "main": "./lib/goto-definition",
