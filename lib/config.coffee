@@ -58,7 +58,7 @@ module.exports =
       "(^|\\s)def\\s+(?:self\\.)?{word}\\s*\\(?"
       "(^|\\s)define_method\\s+:?{word}\\s*\\(?"
     ]
-    type: ["*.rb"]
+    type: ["*.rb", "*.ru"]
 
   KRL:
     regex: [
