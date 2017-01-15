@@ -40,9 +40,10 @@ module.exports =
       "(^|\\s)class\\s+{word}(\\s|{|$)"
       "(^|\\s)interface\\s+{word}(\\s|{|$)"
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
+      "(^|\\s)const\\s+{word}(\\s|=|;|$)"
     ]
     type: ["*.php"]
-    
+
   Hack:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|{|$)"
