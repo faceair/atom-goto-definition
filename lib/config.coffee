@@ -42,7 +42,7 @@ module.exports =
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
     type: ["*.php"]
-    
+
   Hack:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|{|$)"
@@ -74,3 +74,18 @@ module.exports =
       "(^|\\s)package\\s+(\\w+::)*{word}\\s*\\;"
     ]
     type: ["*.pm","*.pl"]
+
+  'C/C++':
+    regex: [
+      "(^|\\s)class\\s+{word}(\\s|:)"
+      "(^|\\s)struct\\s+{word}(\\s|{|$)"
+      "(^|\\s)enum\\s+{word}(\\s|{|$)"
+      "(^|\\s)#define\\s+{word}\\s*"
+      "(^|\\s)void\\s+\\*?\\s*{word}\\s*\\("
+      "(^|\\s)bool\\s+\\*?\\s*{word}\\s*\\("
+      "(^|\\s)char\\s+\\*?\\s*{word}\\s*\\("
+      "(^|\\s)int\\s+\\*?\\s*{word}\\s*\\("
+      "(^|\\s)unsigned\\s+\\*?\\s*{word}\\s*\\("
+      "<[^-]*>\\s*{word}\\s*\\("
+    ]
+    type: ["*.c","*.cc","*.cpp","*.h","*.hh","*.hpp","*.inc"]
