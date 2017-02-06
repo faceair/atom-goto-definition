@@ -42,7 +42,7 @@ module.exports =
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
     type: ["*.php"]
-    
+
   Hack:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|{|$)"
@@ -56,6 +56,10 @@ module.exports =
       "(^|\\s)class\\s+{word}(\\s|$)"
       "(^|\\s)module\\s+{word}(\\s|$)"
       "(^|\\s)def\\s+(?:self\\.)?{word}\\s*\\(?"
+      "(^|\\s)scope\\s+(?:self\\.)?{word}\\s*\\(?"
+      "(^|\\s)attr_accessor\\s+(?:self\\.)?{word}\\s*\\(?"
+      "(^|\\s)attr_reader\\s+(?:self\\.)?{word}\\s*\\(?"
+      "(^|\\s)attr_writer\\s+(?:self\\.)?{word}\\s*\\(?"
       "(^|\\s)define_method\\s+:?{word}\\s*\\(?"
     ]
     type: ["*.rb"]
