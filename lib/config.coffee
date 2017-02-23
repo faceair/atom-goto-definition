@@ -80,8 +80,7 @@ module.exports =
       "(^|\\s)class\\s+{word}(\\s|:)"
       "(^|\\s)struct\\s+{word}(\\s|{|$)"
       "(^|\\s)enum\\s+{word}(\\s|{|$)"
-      "(^|\\s)#define\\s+{word}\\s*"
-      "<[^-]*>\\s*{word}\\s*\\("
-      "(^|\\s)(void|bool|char|char16_t|char32_t|wchar_t|int|short|long|signed|unsigned|float|double)\\s+\\*?\\s*{word}\\s*\\("
+      "(^|\\s)#define\\s+{word}(\\s|\\(|$)"
+      "^[^,=/(]*[^,=/(\\s]+\\s*(\\s|\\*|:|&){word}\\s*\\(.*\\)(\\s*|\\s*const\\s*)({|$)"
     ]
     type: ["*.c","*.cc","*.cpp","*.h","*.hh","*.hpp","*.inc"]
