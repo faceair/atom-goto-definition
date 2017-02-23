@@ -81,6 +81,7 @@ module.exports =
       "(^|\\s)struct\\s+{word}(\\s|{|$)"
       "(^|\\s)enum\\s+{word}(\\s|{|$)"
       "(^|\\s)#define\\s+{word}(\\s|\\(|$)"
+      "(^|\\s)typedef\\s.*(\\s|\\*|\\(){word}(\\s|;|\\)|$)"
       "^[^,=/(]*[^,=/(\\s]+\\s*(\\s|\\*|:|&){word}\\s*\\(.*\\)(\\s*|\\s*const\\s*)({|$)"
     ]
     type: ["*.c","*.cc","*.cpp","*.h","*.hh","*.hpp","*.inc"]
