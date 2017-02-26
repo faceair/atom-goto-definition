@@ -42,7 +42,7 @@ module.exports =
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
     type: ["*.php"]
-    
+
   Hack:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|{|$)"
@@ -58,7 +58,7 @@ module.exports =
       "(^|\\s)def\\s+(?:self\\.)?{word}\\s*\\(?"
       "(^|\\s)define_method\\s+:?{word}\\s*\\(?"
     ]
-    type: ["*.rb"]
+    type: ["*.rb", "*.haml", "*.erb"]
 
   KRL:
     regex: [
