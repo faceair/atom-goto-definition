@@ -1,6 +1,6 @@
 {
-  "name": "goto-definition",
-  "version": "1.1.19",
+  "name": "atom-goto-definition-with-brightscript",
+  "version": "1.1.20",
   "description": "Goto definition.",
   "main": "./lib/goto-definition",
   "dependencies": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/faceair/atom-goto-definition.git"
+    "url": "git+https://github.com/dmytrofrolov/atom-goto-definition.git"
   },
   "author": "faceair",
   "license": "GPL",
@@ -19,7 +19,7 @@
     "atom": ">0.50.0"
   },
   "bugs": {
-    "url": "https://github.com/faceair/atom-goto-definition/issues"
+    "url": "https://github.com/dmytrofrolov/atom-goto-definition/issues"
   },
-  "homepage": "https://github.com/faceair/atom-goto-definition#readme"
+  "homepage": "https://github.com/dmytrofrolov/atom-goto-definition#readme"
 }
