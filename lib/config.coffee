@@ -43,6 +43,12 @@ module.exports =
     ]
     type: ["*.php"]
 
+  ASP:
+    regex: [
+      "(^|\\s)(function|sub)\\s+{word}\\s*\\("
+    ]
+    type: ["*.asp"]
+
   Hack:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|{|$)"
