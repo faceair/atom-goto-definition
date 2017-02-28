@@ -13,6 +13,10 @@ class DefinitionsView extends SelectListView
     @panel.show()
     @setLoading('Looking for definitions')
 
+    setTimeout(() =>
+      @focusFilterEditor()
+    , 100)
+
   destroy: ->
     @cancel()
     @panel.destroy()

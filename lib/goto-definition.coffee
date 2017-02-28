@@ -120,7 +120,6 @@ module.exports =
           }
 
       if (@definitionsView.items ? []).length is 0
-        @definitionsView.focusFilterEditor()
         @definitionsView.setItems(items)
       else
         @definitionsView.addItems(items)
@@ -128,7 +127,6 @@ module.exports =
       items = @definitionsView.items ? []
       switch items.length
         when 0
-          @definitionsView.focusFilterEditor()
           @definitionsView.setItems(items)
         when 1
           @definitionsView.confirmed(items[0])
