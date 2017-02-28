@@ -38,10 +38,12 @@ module.exports =
 
   deactivate: ->
 
+  getSelectedWord: (editor) ->
+    return (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+
   getScanOptions: ->
     editor = atom.workspace.getActiveTextEditor()
-
-    word = (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    word = @getSelectedWord(editor)
     file_path = editor.getPath()
     if not file_path
       return {
@@ -69,6 +71,17 @@ module.exports =
     return {
       regex: new RegExp(regex, 'i')
       paths: scan_paths
+    }
+
+  getProvider: ->
+    return {
+      providerName:'goto-definition-hyperclick',
+      wordRegExp: /[$0-9\w]+/g,
+      getSuggestionForWord: (textEditor, text, range) =>
+        return {
+          range,
+          callback: => @go()
+        }
     }
 
   go: ->
@@ -107,6 +120,7 @@ module.exports =
           }
 
       if (@definitionsView.items ? []).length is 0
+        @definitionsView.focusFilterEditor()
         @definitionsView.setItems(items)
       else
         @definitionsView.addItems(items)
@@ -114,6 +128,7 @@ module.exports =
       items = @definitionsView.items ? []
       switch items.length
         when 0
+          @definitionsView.focusFilterEditor()
           @definitionsView.setItems(items)
         when 1
           @definitionsView.confirmed(items[0])

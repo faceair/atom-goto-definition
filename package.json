@@ -6,6 +6,13 @@
   "dependencies": {
     "atom-space-pen-views": "^2.1.1"
   },
+  "providedServices": {
+    "hyperclick.provider": {
+      "versions": {
+        "0.0.0": "getProvider"
+      }
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
