@@ -69,7 +69,7 @@ module.exports =
       "(^|\\s)attr_writer\\s+:{word}(\\s|$)"
       "(^|\\s)define_method\\s+:?{word}\\s*\\(?"
     ]
-    type: ["*.rb"]
+    type: ["*.rb", "*.erb"]
 
   Puppet:
     regex: [
