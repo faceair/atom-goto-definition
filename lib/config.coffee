@@ -42,7 +42,7 @@ module.exports =
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
       "(^|\\s)const\\s+{word}(\\s|=|;|$)"
     ]
-    type: ["*.php"]
+    type: ["*.php", "*.php3", "*.phtml"]
 
   ASP:
     regex: [
