@@ -5,14 +5,17 @@ path = require 'path'
 
 module.exports =
 class DefinitionsView extends SelectListView
-  initialize: (matches) ->
+  initialize: ->
     super
     @storeFocusedElement()
     @addClass('symbols-view')
     @panel ?= atom.workspace.addModalPanel(item: this)
     @panel.show()
     @setLoading('Looking for definitions')
-    @focusFilterEditor()
+
+    setTimeout(() =>
+      @focusFilterEditor()
+    , 100)
 
   destroy: ->
     @cancel()
