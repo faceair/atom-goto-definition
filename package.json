@@ -1,10 +1,17 @@
 {
   "name": "goto-definition",
-  "version": "1.1.19",
+  "version": "1.2.0",
   "description": "Goto definition.",
   "main": "./lib/goto-definition",
   "dependencies": {
     "atom-space-pen-views": "^2.1.1"
+  },
+  "providedServices": {
+    "hyperclick.provider": {
+      "versions": {
+        "0.0.0": "getProvider"
+      }
+    }
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

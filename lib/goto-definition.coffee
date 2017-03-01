@@ -38,11 +38,18 @@ module.exports =
 
   deactivate: ->
 
+  getSelectedWord: (editor) ->
+    return (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+
   getScanOptions: ->
     editor = atom.workspace.getActiveTextEditor()
-
-    word = (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-    file_extension = "*." + editor.getPath().split('.').pop()
+    word = @getSelectedWord(editor)
+    file_path = editor.getPath()
+    if not file_path
+      return {
+        message: 'This file must be saved to disk .'
+      }
+    file_extension = "*." + file_path.split('.').pop()
 
     scan_regex = []
     scan_paths = []
@@ -52,7 +59,9 @@ module.exports =
         scan_paths.push.apply(scan_paths, grammar_option.type)
 
     if scan_regex.length == 0
-      return {}
+      return {
+        message: 'This language is not supported . Pull Request Welcome 👏.'
+      }
 
     scan_regex = scan_regex.filter (e, i, arr) -> arr.lastIndexOf(e) is i
     scan_paths = scan_paths.filter (e, i, arr) -> arr.lastIndexOf(e) is i
@@ -64,10 +73,21 @@ module.exports =
       paths: scan_paths
     }
 
+  getProvider: ->
+    return {
+      providerName:'goto-definition-hyperclick',
+      wordRegExp: /[$0-9\w]+/g,
+      getSuggestionForWord: (textEditor, text, range) =>
+        return {
+          range,
+          callback: => @go()
+        }
+    }
+
   go: ->
-    {regex, paths} = @getScanOptions()
+    {regex, paths, message} = @getScanOptions()
     unless regex
-      return atom.notifications.addWarning('This language is not supported . Pull Request Welcome 👏.')
+      return atom.notifications.addWarning(message)
 
     if @definitionsView
       @definitionsView.destroy()

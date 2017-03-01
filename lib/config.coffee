@@ -40,9 +40,16 @@ module.exports =
       "(^|\\s)class\\s+{word}(\\s|{|$)"
       "(^|\\s)interface\\s+{word}(\\s|{|$)"
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
+      "(^|\\s)const\\s+{word}(\\s|=|;|$)"
     ]
-    type: ["*.php", "*.phtml"]
-    
+    type: ["*.php", "*.php3", "*.phtml"]
+
+  ASP:
+    regex: [
+      "(^|\\s)(function|sub)\\s+{word}\\s*\\("
+    ]
+    type: ["*.asp"]
+
   Hack:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|{|$)"
@@ -56,9 +63,19 @@ module.exports =
       "(^|\\s)class\\s+{word}(\\s|$)"
       "(^|\\s)module\\s+{word}(\\s|$)"
       "(^|\\s)def\\s+(?:self\\.)?{word}\\s*\\(?"
+      "(^|\\s)scope\\s+:{word}\\s*\\(?"
+      "(^|\\s)attr_accessor\\s+:{word}(\\s|$)"
+      "(^|\\s)attr_reader\\s+:{word}(\\s|$)"
+      "(^|\\s)attr_writer\\s+:{word}(\\s|$)"
       "(^|\\s)define_method\\s+:?{word}\\s*\\(?"
     ]
-    type: ["*.rb"]
+    type: ["*.rb", "*.ru", "*.haml", "*.erb"]
+
+  Puppet:
+    regex: [
+      "(^|\\s)class\\s+{word}(\\s|$)"
+    ]
+    type: ["*.pp"]
 
   KRL:
     regex: [
@@ -74,3 +91,14 @@ module.exports =
       "(^|\\s)package\\s+(\\w+::)*{word}\\s*\\;"
     ]
     type: ["*.pm","*.pl"]
+
+  'C/C++':
+    regex: [
+      "(^|\\s)class\\s+{word}(\\s|:)"
+      "(^|\\s)struct\\s+{word}(\\s|{|$)"
+      "(^|\\s)enum\\s+{word}(\\s|{|$)"
+      "(^|\\s)#define\\s+{word}(\\s|\\(|$)"
+      "(^|\\s)typedef\\s.*(\\s|\\*|\\(){word}(\\s|;|\\)|$)"
+      "^[^,=/(]*[^,=/(\\s]+\\s*(\\s|\\*|:|&){word}\\s*\\(.*\\)(\\s*|\\s*const\\s*)({|$)"
+    ]
+    type: ["*.c","*.cc","*.cpp","*.h","*.hh","*.hpp","*.inc"]
