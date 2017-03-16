@@ -7,6 +7,7 @@
 * Support for `JavaScript(ES6 && JSX)`, `TypeScript`, `CoffeeScript`, `Python`, `Ruby`, `PHP`, `Hack`, `Perl`, `KRL`, `Erb`, `Haml`, `C/C++`, `Puppet`, `ASP`
 * Works with Mac OSX, Linux and Windows
 * Goto-Definition functionality, by default on `Alt+Cmd+Enter`/`Ctrl+Alt+Enter`
+* Support [hyperclick](https://atom.io/packages/hyperclick), `<cmd-click>` on a word to jump it's declaration
 
 ## Installing
 Install the package ```goto-definition``` in Atom (Preferences->Install) or use Atom's package manager from a shell:  
