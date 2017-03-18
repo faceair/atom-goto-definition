@@ -112,7 +112,7 @@ module.exports =
       "(^|\\s)sub\\s+{&word}\\s*[({]"
       "(^|\\s)(my|constant|state)\\s+(\\S+\\s+)?\\\\?{word}\\s*[=;]"
       "(^|\\s)subset\\s+{word}\\s"
-      "\\s+->\\s+(\\S+\\s*,\\s*)*{word}(\\s|\\{)"
+      "(\\(|\\s)->\\s+(\\S+\\s*,\\s*)*{word}(\\s|\\{|,)"
     ]
     type: ["*.pm6","*.pl6", "*.p6"]
 
