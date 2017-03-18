@@ -66,7 +66,17 @@ module.exports =
     scan_regex = scan_regex.filter (e, i, arr) -> arr.lastIndexOf(e) is i
     scan_paths = scan_paths.filter (e, i, arr) -> arr.lastIndexOf(e) is i
 
-    regex = scan_regex.join('|').replace(/{word}/g, word)
+    # Word recognition doesn't always work perfectly (e.g. clojure deref with
+    # @word, and perl6 sub-as-value reference with &subName)
+    # This fn let's us strip a head character from the word when searching for
+    # a definition (by looking for def {@word} and sub {&word} respectively,
+    # where {@word} really means {word except that we don't care about the first char which is an @ })
+    replaceHeadwords = (s) ->
+      s.match(/{.word}/g).reduce (x, y) ->
+        x.replace(///#{y}///g, word.replace(y[1], ''))
+      , s
+
+    regex = replaceHeadwords(scan_regex.join('|').replace(/{word}/g, word))
 
     return {
       regex: new RegExp(regex, 'i')
