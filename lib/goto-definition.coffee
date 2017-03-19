@@ -40,7 +40,7 @@ module.exports =
 
   getSelectedWord: (editor) ->
     return (editor.getSelectedText() or editor.getWordUnderCursor({
-      wordRegex: /[$0-9\w-_]+/,
+      wordRegex: /[$0-9\w-]+/,
       includeNonWordCharacters: true
     })).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 
@@ -79,7 +79,7 @@ module.exports =
   getProvider: ->
     return {
       providerName:'goto-definition-hyperclick',
-      wordRegExp: /[$0-9\w-_]+/g,
+      wordRegExp: /[$0-9\w-]+/g,
       getSuggestionForWord: (textEditor, text, range) =>
         return {
           range,
