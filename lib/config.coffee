@@ -106,11 +106,11 @@ module.exports =
 
   Perl6:
     regex: [
-      "(^|\\s)(class|role|module|grammar)\\s+{word}\\s*\\{"
-      "(^|\\s)(sub|method|multi)\\s+{word}\\s*[({]"
+      "(^|\\s)(class|grammar|module|role)\\s+{word}\\s*\\{"
+      "(^|\\s)(multi|method|sub)\\s+{word}\\s*[({]"
       "(^|\\s)(sub|multi)\\s+\\w+fix:<{word}>\\s*[({]"
       "(^|\\s)sub\\s+{&word}\\s*[({]"
-      "(^|\\s)(my|constant|state)\\s+(\\S+\\s+)?\\\\?{word}\\s*[=;]"
+      "(^|\\s)(state|my|constant)\\s+(\\S+\\s+)?\\\\?{word}\\s*[=;]"
       "(^|\\s)subset\\s+{word}\\s"
       "(\\(|\\s)->\\s+(\\S+\\s*,\\s*)*{word}(\\s|\\{|,)"
     ]
