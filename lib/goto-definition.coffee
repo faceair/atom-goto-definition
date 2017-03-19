@@ -79,7 +79,7 @@ module.exports =
   getProvider: ->
     return {
       providerName:'goto-definition-hyperclick',
-      wordRegExp: /[$0-9\w]+/g,
+      wordRegExp: /[$0-9\w-_]+/g,
       getSuggestionForWord: (textEditor, text, range) =>
         return {
           range,
