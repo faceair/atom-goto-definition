@@ -39,7 +39,10 @@ module.exports =
   deactivate: ->
 
   getSelectedWord: (editor) ->
-    return (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    return (editor.getSelectedText() or editor.getWordUnderCursor({
+      wordRegex: /[$0-9\w-_]+/,
+      includeNonWordCharacters: true
+    })).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 
   getScanOptions: ->
     editor = atom.workspace.getActiveTextEditor()
