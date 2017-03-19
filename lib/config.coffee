@@ -110,7 +110,7 @@ module.exports =
       "(^|\\s)(multi|method|sub)\\s+{word}\\s*[({]"
       "(^|\\s)(sub|multi)\\s+\\w+fix:<{word}>\\s*[({]"
       "(^|\\s)sub\\s+{&word}\\s*[({]"
-      "(^|\\s)(state|my|constant)\\s+(\\S+\\s+)?\\\\?{word}\\s*[=;]"
+      "(^|\\s)(state|my|constant)\\s+(\\S+\\s+)?(\\\\|&)?{word}\\s*[=;]"
       "(^|\\s)subset\\s+{word}\\s"
       "(\\(|\\s)->\\s+(\\S+\\s*,\\s*)*{word}(\\s|\\{|,)"
     ]
