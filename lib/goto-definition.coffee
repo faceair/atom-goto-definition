@@ -92,7 +92,7 @@ module.exports =
     @definitionsView = new DefinitionsView()
 
     atom.workspace.scan regex, {paths}, (result, error) =>
-      items = result.matches.map (match) ->
+      items = result.matches.map((match) ->
         if Array.isArray(match.range)
           return {
             text: match.lineText
@@ -116,6 +116,15 @@ module.exports =
             line: line_number
             column: lines.pop().length
           }
+        ).map((match) ->
+          head_empty_chars = /^\s+/.exec(match.text)?[0] ? ''
+          return {
+            text: match.text.substring(head_empty_chars.length)
+            fileName: match.fileName
+            line: match.line
+            column: head_empty_chars.length
+          }
+        )
 
       if (@definitionsView.items ? []).length is 0
         @definitionsView.setItems(items)
