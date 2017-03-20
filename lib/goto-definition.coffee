@@ -106,7 +106,7 @@ module.exports =
             column: lines.pop().length
           }
         ).map((match) ->
-          head_empty_chars = /^\s+/.exec(match.text.substring(match.column))?[0] ? ''
+          head_empty_chars = /^[\s\.]/.exec(match.text.substring(match.column))?[0] ? ''
           return {
             text: match.text,
             fileName: match.fileName,
