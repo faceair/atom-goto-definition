@@ -12,10 +12,7 @@ class DefinitionsView extends SelectListView
     @panel ?= atom.workspace.addModalPanel(item: this)
     @panel.show()
     @setLoading('Looking for definitions')
-
-    setTimeout(() =>
-      @focusFilterEditor()
-    , 100)
+    setTimeout(@focusFilterEditor.bind(@), 100)
 
   destroy: ->
     @cancel()

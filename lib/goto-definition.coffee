@@ -19,8 +19,7 @@ module.exports =
     ]
 
   activate: ->
-    atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', =>
-      @go()
+    atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', @go.bind(@)
 
     if atom.config.get('goto-definition.rightMenuDisplayAtFirst')
       atom.contextMenu.add @firstMenu
@@ -75,11 +74,7 @@ module.exports =
     return {
       providerName:'goto-definition-hyperclick',
       wordRegExp: /[$0-9\w-]+/g,
-      getSuggestionForWord: (textEditor, text, range) =>
-        return {
-          range,
-          callback: => @go()
-        }
+      getSuggestionForWord: (textEditor, text, range) => { range, callback: @go.bind(@) }
     }
 
   go: ->
