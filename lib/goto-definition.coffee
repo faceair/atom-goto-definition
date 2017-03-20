@@ -9,21 +9,13 @@ module.exports =
 
   firstMenu:
     'atom-workspace atom-text-editor:not(.mini)': [
-      {
-        label: 'Goto Definition',
-        command: 'goto-definition:go'
-      },
-      {
-        type: 'separator'
-      }
+      { label: 'Goto Definition', command: 'goto-definition:go' },
+      { type: 'separator' }
     ]
 
   normalMenu:
     'atom-workspace atom-text-editor:not(.mini)': [
-      {
-        label: 'Goto Definition',
-        command: 'goto-definition:go'
-      }
+      { label: 'Goto Definition', command: 'goto-definition:go' }
     ]
 
   activate: ->
@@ -37,6 +29,9 @@ module.exports =
       atom.contextMenu.add @normalMenu
 
   deactivate: ->
+    for item, i in atom.contextMenu.itemSets
+      if item and item.items[0].command is 'goto-definition:go'
+        atom.contextMenu.itemSets.splice(i, 1)
 
   getSelectedWord: (editor) ->
     return (editor.getSelectedText() or editor.getWordUnderCursor({
