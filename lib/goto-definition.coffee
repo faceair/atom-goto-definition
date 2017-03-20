@@ -73,7 +73,9 @@ module.exports =
     return {
       providerName:'goto-definition-hyperclick',
       wordRegExp: /[$0-9\w-]+/g,
-      getSuggestionForWord: (textEditor, text, range) => { range, callback: @go.bind(this) }
+      getSuggestionForWord: (textEditor, text, range) => {
+        range, callback: () => @go() if text
+      }
     }
 
   go: ->
