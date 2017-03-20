@@ -1,4 +1,6 @@
 DefinitionsView = require './definitions-view.coffee'
+Searcher = require './searcher'
+
 config = require './config.coffee'
 
 module.exports =
@@ -48,11 +50,11 @@ module.exports =
     file_extension = "*." + file_path.split('.').pop()
 
     scan_regex = []
-    scan_paths = []
+    scan_types = []
     for grammar_name, grammar_option of config
       if grammar_option.type.indexOf(file_extension) isnt -1
         scan_regex.push.apply(scan_regex, grammar_option.regex)
-        scan_paths.push.apply(scan_paths, grammar_option.type)
+        scan_types.push.apply(scan_types, grammar_option.type)
 
     if scan_regex.length == 0
       return {
@@ -60,13 +62,13 @@ module.exports =
       }
 
     scan_regex = scan_regex.filter (item, index, arr) -> arr.lastIndexOf(item) is index
-    scan_paths = scan_paths.filter (item, index, arr) -> arr.lastIndexOf(item) is index
+    scan_types = scan_types.filter (item, index, arr) -> arr.lastIndexOf(item) is index
 
     regex = scan_regex.join('|').replace(/{word}/g, word)
 
     return {
       regex: new RegExp(regex, 'i'),
-      paths: scan_paths
+      file_types: scan_types
     }
 
   getProvider: ->
@@ -79,52 +81,27 @@ module.exports =
     }
 
   go: ->
-    {regex, paths, message} = @getScanOptions()
+    {regex, file_types, message} = @getScanOptions()
     unless regex
       return atom.notifications.addWarning(message)
 
     if @definitionsView
       @definitionsView.destroy()
     @definitionsView = new DefinitionsView()
+    scan_paths = atom.project.getDirectories().map((x) -> x.path)
 
-    atom.workspace.scan regex, {paths}, (result, error) =>
-      items = result.matches.map((match) ->
-        if Array.isArray(match.range)
-          return {
-            text: match.lineText,
-            fileName: result.filePath,
-            line: match.range[0][0],
-            column: match.range[0][1]
-          }
-        else
-          all_lines = match.match.input.split(/\r\n|\r|\n/)
-          lines = match.match.input.substring(0, match.match.index).split(/\r\n|\r|\n/)
-          line_number = lines.length - 1
-
-          return {
-            text: all_lines[line_number],
-            fileName: result.filePath,
-            line: line_number,
-            column: lines.pop().length
-          }
-        ).map((match) ->
-          head_empty_chars = /^[\s\.]/.exec(match.text.substring(match.column))?[0] ? ''
-          return {
-            text: match.text,
-            fileName: match.fileName,
-            line: match.line,
-            column: match.column + head_empty_chars.length
-          }
-        )
-
+    iterator = (items) =>
       if (@definitionsView.items ? []).length is 0
         @definitionsView.setItems(items)
       else
         @definitionsView.addItems(items)
-    .then =>
+
+    callback = () =>
       items = @definitionsView.items ? []
       switch items.length
         when 0
           @definitionsView.setItems(items)
         when 1
           @definitionsView.confirmed(items[0])
+
+    Searcher.atomScan(scan_paths, file_types, regex, iterator, callback)
