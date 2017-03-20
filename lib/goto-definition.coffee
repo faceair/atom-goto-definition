@@ -9,8 +9,7 @@ module.exports =
 
   firstMenu:
     'atom-workspace atom-text-editor:not(.mini)': [
-      { label: 'Goto Definition', command: 'goto-definition:go' },
-      { type: 'separator' }
+      { label: 'Goto Definition', command: 'goto-definition:go' }, { type: 'separator' }
     ]
 
   normalMenu:
@@ -19,7 +18,7 @@ module.exports =
     ]
 
   activate: ->
-    atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', @go.bind(@)
+    atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', @go.bind(this)
 
     if atom.config.get('goto-definition.rightMenuDisplayAtFirst')
       atom.contextMenu.add @firstMenu
@@ -60,13 +59,13 @@ module.exports =
         message: 'This language is not supported . Pull Request Welcome 👏.'
       }
 
-    scan_regex = scan_regex.filter (e, i, arr) -> arr.lastIndexOf(e) is i
-    scan_paths = scan_paths.filter (e, i, arr) -> arr.lastIndexOf(e) is i
+    scan_regex = scan_regex.filter (item, index, arr) -> arr.lastIndexOf(item) is index
+    scan_paths = scan_paths.filter (item, index, arr) -> arr.lastIndexOf(item) is index
 
     regex = scan_regex.join('|').replace(/{word}/g, word)
 
     return {
-      regex: new RegExp(regex, 'i')
+      regex: new RegExp(regex, 'i'),
       paths: scan_paths
     }
 
@@ -74,7 +73,7 @@ module.exports =
     return {
       providerName:'goto-definition-hyperclick',
       wordRegExp: /[$0-9\w-]+/g,
-      getSuggestionForWord: (textEditor, text, range) => { range, callback: @go.bind(@) }
+      getSuggestionForWord: (textEditor, text, range) => { range, callback: @go.bind(this) }
     }
 
   go: ->
@@ -90,9 +89,9 @@ module.exports =
       items = result.matches.map((match) ->
         if Array.isArray(match.range)
           return {
-            text: match.lineText
-            fileName: result.filePath
-            line: match.range[0][0]
+            text: match.lineText,
+            fileName: result.filePath,
+            line: match.range[0][0],
             column: match.range[0][1]
           }
         else
@@ -106,18 +105,18 @@ module.exports =
           line_number = lines.length - 1
 
           return {
-            text: all_lines[line_number]
-            fileName: result.filePath
-            line: line_number
+            text: all_lines[line_number],
+            fileName: result.filePath,
+            line: line_number,
             column: lines.pop().length
           }
         ).map((match) ->
-          head_empty_chars = /^\s+/.exec(match.text)?[0] ? ''
+          head_empty_chars = /^\s+/.exec(match.text.substring(match.column))?[0] ? ''
           return {
-            text: match.text.substring(head_empty_chars.length)
-            fileName: match.fileName
-            line: match.line
-            column: head_empty_chars.length
+            text: match.text,
+            fileName: match.fileName,
+            line: match.line,
+            column: match.column + head_empty_chars.length
           }
         )
 
