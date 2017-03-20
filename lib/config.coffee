@@ -84,14 +84,14 @@ module.exports =
       "(^|\\s)DECL\\s+\\w*?{word}\\s*\\=?"
       "(^|\\s)(SIGNAL|INT|BOOL|REAL|STRUC|CHAR|ENUM|EXT|\\s)\\s*\\w*{word}.*"
     ]
-    type: ["*.src","*.dat"]
+    type: ["*.src", "*.dat"]
 
   Perl:
     regex: [
       "(^|\\s)sub\\s+{word}\\s*\\{"
       "(^|\\s)package\\s+(\\w+::)*{word}\\s*\\;"
     ]
-    type: ["*.pm","*.pl"]
+    type: ["*.pm", "*.pl"]
 
   'C/C++':
     regex: [
@@ -102,7 +102,7 @@ module.exports =
       "(^|\\s)typedef\\s.*(\\s|\\*|\\(){word}(\\s|;|\\)|$)"
       "^[^,=/(]*[^,=/(\\s]+\\s*(\\s|\\*|:|&){word}\\s*\\(.*\\)(\\s*|\\s*const\\s*)({|$)"
     ]
-    type: ["*.c","*.cc","*.cpp","*.h","*.hh","*.hpp","*.inc"]
+    type: ["*.c", "*.cc", "*.cpp", "*.h", "*.hh", "*.hpp", "*.inc"]
 
   Perl6:
     regex: [

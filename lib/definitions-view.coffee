@@ -3,19 +3,15 @@
 {$, $$, SelectListView} = require 'atom-space-pen-views'
 path = require 'path'
 
-module.exports =
-class DefinitionsView extends SelectListView
+module.exports = class DefinitionsView extends SelectListView
   initialize: ->
     super
     @storeFocusedElement()
     @addClass('symbols-view')
-    @panel ?= atom.workspace.addModalPanel(item: this)
+    @panel ?= atom.workspace.addModalPanel({item: this})
     @panel.show()
     @setLoading('Looking for definitions')
-
-    setTimeout(() =>
-      @focusFilterEditor()
-    , 100)
+    setTimeout(@focusFilterEditor.bind(this), 100)
 
   destroy: ->
     @cancel()

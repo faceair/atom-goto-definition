@@ -9,26 +9,16 @@ module.exports =
 
   firstMenu:
     'atom-workspace atom-text-editor:not(.mini)': [
-      {
-        label: 'Goto Definition',
-        command: 'goto-definition:go'
-      },
-      {
-        type: 'separator'
-      }
+      { label: 'Goto Definition', command: 'goto-definition:go' }, { type: 'separator' }
     ]
 
   normalMenu:
     'atom-workspace atom-text-editor:not(.mini)': [
-      {
-        label: 'Goto Definition',
-        command: 'goto-definition:go'
-      }
+      { label: 'Goto Definition', command: 'goto-definition:go' }
     ]
 
   activate: ->
-    atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', =>
-      @go()
+    atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', @go.bind(this)
 
     if atom.config.get('goto-definition.rightMenuDisplayAtFirst')
       atom.contextMenu.add @firstMenu
@@ -37,9 +27,15 @@ module.exports =
       atom.contextMenu.add @normalMenu
 
   deactivate: ->
+    for item, i in atom.contextMenu.itemSets
+      if item and item.items[0].command is 'goto-definition:go'
+        atom.contextMenu.itemSets.splice(i, 1)
 
   getSelectedWord: (editor) ->
-    return (editor.getSelectedText() or editor.getWordUnderCursor()).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    return (editor.getSelectedText() or editor.getWordUnderCursor({
+      wordRegex: /[$0-9\w-]+/,
+      includeNonWordCharacters: true
+    })).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 
   getScanOptions: ->
     editor = atom.workspace.getActiveTextEditor()
@@ -63,8 +59,8 @@ module.exports =
         message: 'This language is not supported . Pull Request Welcome 👏.'
       }
 
-    scan_regex = scan_regex.filter (e, i, arr) -> arr.lastIndexOf(e) is i
-    scan_paths = scan_paths.filter (e, i, arr) -> arr.lastIndexOf(e) is i
+    scan_regex = scan_regex.filter (item, index, arr) -> arr.lastIndexOf(item) is index
+    scan_paths = scan_paths.filter (item, index, arr) -> arr.lastIndexOf(item) is index
 
     # Word recognition doesn't always work perfectly (e.g. clojure deref with
     # @word, and perl6 sub-as-value reference with &subName)
@@ -79,19 +75,17 @@ module.exports =
     regex = replaceHeadwords(scan_regex.join('|').replace(/{word}/g, word))
 
     return {
-      regex: new RegExp(regex, 'i')
+      regex: new RegExp(regex, 'i'),
       paths: scan_paths
     }
 
   getProvider: ->
     return {
       providerName:'goto-definition-hyperclick',
-      wordRegExp: /[$0-9\w]+/g,
-      getSuggestionForWord: (textEditor, text, range) =>
-        return {
-          range,
-          callback: => @go()
-        }
+      wordRegExp: /[$0-9\w-]+/g,
+      getSuggestionForWord: (textEditor, text, range) => {
+        range, callback: () => @go() if text
+      }
     }
 
   go: ->
@@ -104,30 +98,34 @@ module.exports =
     @definitionsView = new DefinitionsView()
 
     atom.workspace.scan regex, {paths}, (result, error) =>
-      items = result.matches.map (match) ->
+      items = result.matches.map((match) ->
         if Array.isArray(match.range)
           return {
-            text: match.lineText
-            fileName: result.filePath
-            line: match.range[0][0]
+            text: match.lineText,
+            fileName: result.filePath,
+            line: match.range[0][0],
             column: match.range[0][1]
           }
         else
-          if /\s/.test(match.match.input.charAt(match.match.index))
-            start_position = match.match.index + 1
-          else
-            start_position = match.match.index
-
           all_lines = match.match.input.split(/\r\n|\r|\n/)
-          lines = match.match.input.substring(0, start_position).split(/\r\n|\r|\n/)
+          lines = match.match.input.substring(0, match.match.index).split(/\r\n|\r|\n/)
           line_number = lines.length - 1
 
           return {
-            text: all_lines[line_number]
-            fileName: result.filePath
-            line: line_number
+            text: all_lines[line_number],
+            fileName: result.filePath,
+            line: line_number,
             column: lines.pop().length
           }
+        ).map((match) ->
+          head_empty_chars = /^[\s\.]/.exec(match.text.substring(match.column))?[0] ? ''
+          return {
+            text: match.text,
+            fileName: match.fileName,
+            line: match.line,
+            column: match.column + head_empty_chars.length
+          }
+        )
 
       if (@definitionsView.items ? []).length is 0
         @definitionsView.setItems(items)
