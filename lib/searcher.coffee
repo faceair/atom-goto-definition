@@ -5,7 +5,7 @@ module.exports = class Searcher
 
   @transformUnsavedMatch: (match) ->
     all_lines = match.match.input.split(/\r\n|\r|\n/)
-    lines = match.match.input.substring(0, match.match.index).split(/\r\n|\r|\n/)
+    lines = match.match.input.substring(0, match.match.index + 1).split(/\r\n|\r|\n/)
     line_number = lines.length - 1
 
     return {
@@ -41,18 +41,24 @@ module.exports = class Searcher
       iterator(items)
     ).then(callback)
 
-  @atomBufferScan: (regex, iterator, callback) ->
+  @atomBufferScan: (file_types, regex, iterator, callback) ->
     panels = atom.workspace.getPaneItems()
     callback(panels.map((editor) ->
-      editor.scan new RegExp(regex, 'ig'), (match) ->
-        item = Searcher.transformUnsavedMatch(match)
-        item.fileName = editor.getPath()
-        iterator([Searcher.fixColumn(item)])
-      return editor.getPath()
-    ))
+      if editor.constructor.name is 'TextEditor'
+        file_path = editor.getPath()
+        if file_path
+          file_extension = "*." + file_path.split('.').pop()
+          if file_extension in file_types
+            editor.scan new RegExp(regex, 'ig'), (match) ->
+              item = Searcher.transformUnsavedMatch(match)
+              item.fileName = file_path
+              iterator([Searcher.fixColumn(item)])
+          return file_path
+      return null
+    ).filter((x) -> x isnt null))
 
   @ripgrepScan: (scan_paths, file_types, regex, iterator, callback) ->
-    @atomBufferScan regex, iterator, (opened_files) ->
+    @atomBufferScan file_types, regex, iterator, (opened_files) ->
       args = file_types.map((x) -> "--glob=" + x)
       args.push.apply(args, opened_files.map((x) -> "--glob=!" + x))
       args.push.apply(args, [
