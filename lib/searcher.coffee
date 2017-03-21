@@ -64,10 +64,15 @@ module.exports = class Searcher
           return null
       ).filter((x) -> x isnt null))
 
-    run_ripgrep.stderr.on 'data', (data) ->
-      console.error(data)
+    run_ripgrep.stderr.on 'data', (error) ->
+      throw error
 
     run_ripgrep.on 'close', callback
-    run_ripgrep.on 'error', callback
+
+    run_ripgrep.on 'error', (error) ->
+      if error.code is 'ENOENT'
+        atom.notifications.addWarning('Plase install ripgrep first.')
+      else
+        throw error
 
     setTimeout(run_ripgrep.kill.bind(run_ripgrep), 10 * 1000)

@@ -9,6 +9,10 @@ module.exports =
       type: 'boolean'
       default: true
 
+    performanceMode:
+      type: 'boolean'
+      default: false
+
   firstMenu:
     'atom-workspace atom-text-editor:not(.mini)': [
       { label: 'Goto Definition', command: 'goto-definition:go' }, { type: 'separator' }
@@ -103,4 +107,7 @@ module.exports =
         when 1
           @definitionsView.confirmed(items[0])
 
-    Searcher.ripgrepScan(scan_paths, file_types, regex, iterator, callback)
+    if atom.config.get('goto-definition.performanceMode')
+      Searcher.ripgrepScan(scan_paths, file_types, regex, iterator, callback)
+    else
+      Searcher.atomWorkspaceScan(scan_paths, file_types, regex, iterator, callback)
