@@ -39,16 +39,24 @@ module.exports = class Searcher
   @ripgrepScan: (scan_paths, file_types, regex, iterator, callback) ->
     args = [] # file_types.map((x) -> "--glob='" + x + "'")
     args.push.apply(args, ['--line-number', '--column', "'" + regex + "'", scan_paths.join(',')])
-    run_sift = child_process.spawn(path.resolve(__dirname, '../bin/ripgrep'), args)
+    run_ripgrep = child_process.spawn(path.resolve(__dirname, '../bin/ripgrep'), args)
 
-    run_sift.stdout.on 'data', (data) ->
-      console.log(data.toString())
+    run_ripgrep.stdout.setEncoding('utf8')
+    run_ripgrep.stderr.setEncoding('utf8')
 
-    run_sift.stderr.on 'data', (data) ->
-      console.log(data.toString())
+    run_ripgrep.stdout.on 'data', (result) ->
+      data = result.split(":")
+      iterator([{
+        text: result.substring([data[0], data[1], data[2]].join(":").length),
+        fileName: data[0],
+        line: Number(data[1] - 1),
+        column: Number(data[2])
+      }])
 
-    run_sift.on 'close', (code) ->
-      console.log(code)
+    run_ripgrep.stderr.on 'data', (data) ->
+      console.error(data)
 
-    run_sift.on 'error', (err) ->
-      console.log(err)
+    run_ripgrep.on 'close', callback
+    run_ripgrep.on 'error', callback
+
+    setTimeout(run_ripgrep.kill.bind(run_ripgrep), 10 * 1000)
