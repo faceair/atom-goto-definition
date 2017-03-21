@@ -37,7 +37,7 @@ module.exports = class Searcher
     ).then(callback)
 
   @ripgrepScan: (scan_paths, file_types, regex, iterator, callback) ->
-    args = [] # file_types.map((x) -> "--glob='" + x + "'")
+    args = file_types.map((x) -> "--glob=" + x)
     args.push.apply(args, [
       '--line-number', '--column', '--no-ignore-vcs', '--ignore-case',
       regex, scan_paths.join(',')
