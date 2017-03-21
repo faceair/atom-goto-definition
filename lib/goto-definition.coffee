@@ -67,8 +67,7 @@ module.exports =
     regex = scan_regex.join('|').replace(/{word}/g, word)
 
     return {
-      regex: new RegExp(regex, 'i'),
-      file_types: scan_types
+      regex, file_types: scan_types
     }
 
   getProvider: ->
@@ -104,4 +103,4 @@ module.exports =
         when 1
           @definitionsView.confirmed(items[0])
 
-    Searcher.atomScan(scan_paths, file_types, regex, iterator, callback)
+    Searcher.ripgrepScan(scan_paths, file_types, regex, iterator, callback)

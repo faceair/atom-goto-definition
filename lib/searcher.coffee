@@ -1,7 +1,10 @@
+child_process = require 'child_process'
+path = require 'path'
+
 module.exports = class Searcher
 
-  @atomScan: (scan_paths, file_types, regex, iterator, callback) ->
-    atom.workspace.scan(regex, {paths: file_types}, (result, error) ->
+  @atomWorkspaceScan: (scan_paths, file_types, regex, iterator, callback) ->
+    atom.workspace.scan(new RegExp(regex, 'i'), {paths: file_types}, (result, error) ->
       items = result.matches.map((match) ->
         if Array.isArray(match.range)
           return {
@@ -33,4 +36,19 @@ module.exports = class Searcher
       iterator(items)
     ).then(callback)
 
-  @siftScan: (scan_paths, file_types, regex, iterator, callback) ->
+  @ripgrepScan: (scan_paths, file_types, regex, iterator, callback) ->
+    args = [] # file_types.map((x) -> "--glob='" + x + "'")
+    args.push.apply(args, ['--line-number', '--column', "'" + regex + "'", scan_paths.join(',')])
+    run_sift = child_process.spawn(path.resolve(__dirname, '../bin/ripgrep'), args)
+
+    run_sift.stdout.on 'data', (data) ->
+      console.log(data.toString())
+
+    run_sift.stderr.on 'data', (data) ->
+      console.log(data.toString())
+
+    run_sift.on 'close', (code) ->
+      console.log(code)
+
+    run_sift.on 'error', (err) ->
+      console.log(err)
