@@ -39,7 +39,7 @@ module.exports = class Searcher
   @ripgrepScan: (scan_paths, file_types, regex, iterator, callback) ->
     args = [] # file_types.map((x) -> "--glob='" + x + "'")
     args.push.apply(args, ['--line-number', '--column', "'" + regex + "'", scan_paths.join(',')])
-    run_ripgrep = child_process.spawn(path.resolve(__dirname, '../bin/ripgrep'), args)
+    run_ripgrep = child_process.spawn('rg', args)
 
     run_ripgrep.stdout.setEncoding('utf8')
     run_ripgrep.stderr.setEncoding('utf8')
