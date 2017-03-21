@@ -44,14 +44,22 @@ module.exports = class Searcher
     run_ripgrep.stdout.setEncoding('utf8')
     run_ripgrep.stderr.setEncoding('utf8')
 
-    run_ripgrep.stdout.on 'data', (result) ->
-      data = result.split(":")
-      iterator([{
-        text: result.substring([data[0], data[1], data[2]].join(":").length),
-        fileName: data[0],
-        line: Number(data[1] - 1),
-        column: Number(data[2])
-      }])
+    run_ripgrep.stdout.on 'data', (results) ->
+      iterator(results.split("\n").map((result) ->
+        if result.trim().length
+          data = result.split(":")
+          text = result.substring([data[0], data[1], data[2]].join(":").length + 1)
+          column = Number(data[2])
+          if (column is 1) and (/^\s/.test(text) is false) # ripgrep's bug
+            column = 0
+          return {
+            text, column
+            fileName: data[0],
+            line: Number(data[1] - 1),
+          }
+        else
+          return null
+      ).filter((x) -> x isnt null))
 
     run_ripgrep.stderr.on 'data', (data) ->
       console.error(data)
