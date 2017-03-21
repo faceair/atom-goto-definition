@@ -3,7 +3,7 @@ module.exports =
     regex: [
       "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\("
       "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
+      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*\\{"  # ES6
       "(^|\\s)class\\s+{word}(\\s|$)"
     ]
     type: ["*.jsx", "*.js", "*.html"]
@@ -14,7 +14,7 @@ module.exports =
       "(^|\\s|\\.|@){word}\\s*[:=]\\s*(\\([\\s\\S]*?\\))?\\s*[=-]>"
       "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\(" # JavaScript Function
       "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
+      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*\\{"  # ES6
     ]
     type: ["*.coffee", "*.js", "*.html"]
 
@@ -24,7 +24,7 @@ module.exports =
       "(^|\\s|\\.){word}\\s*[:=]\\s*(\\([\\s\\S]*?\\))?\\s*[=-]>"
       "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\(" # JavaScript Function
       "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*{"  # ES6
+      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*\\{"  # ES6
     ]
     type: ["*.ts", "*.html"]
 
@@ -37,9 +37,9 @@ module.exports =
 
   PHP:
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|{|$)"
-      "(^|\\s)interface\\s+{word}(\\s|{|$)"
-      "(^|\\s)trait\\s+{word}(\\s|{|$)"
+      "(^|\\s)class\\s+{word}(\\s|\\{|$)"
+      "(^|\\s)interface\\s+{word}(\\s|\\{|$)"
+      "(^|\\s)trait\\s+{word}(\\s|\\{|$)"
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
       "(^|\\s)const\\s+{word}(\\s|=|;|$)"
     ]
@@ -53,8 +53,8 @@ module.exports =
 
   Hack:
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|{|$)"
-      "(^|\\s)interface\\s+{word}(\\s|{|$)"
+      "(^|\\s)class\\s+{word}(\\s|\\{|$)"
+      "(^|\\s)interface\\s+{word}(\\s|\\{|$)"
       "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
     ]
     type: ["*.hh"]
@@ -96,10 +96,10 @@ module.exports =
   'C/C++':
     regex: [
       "(^|\\s)class\\s+{word}(\\s|:)"
-      "(^|\\s)struct\\s+{word}(\\s|{|$)"
-      "(^|\\s)enum\\s+{word}(\\s|{|$)"
+      "(^|\\s)struct\\s+{word}(\\s|\\{|$)"
+      "(^|\\s)enum\\s+{word}(\\s|\\{|$)"
       "(^|\\s)#define\\s+{word}(\\s|\\(|$)"
       "(^|\\s)typedef\\s.*(\\s|\\*|\\(){word}(\\s|;|\\)|$)"
-      "^[^,=/(]*[^,=/(\\s]+\\s*(\\s|\\*|:|&){word}\\s*\\(.*\\)(\\s*|\\s*const\\s*)({|$)"
+      "^[^,=/(]*[^,=/(\\s]+\\s*(\\s|\\*|:|&){word}\\s*\\(.*\\)(\\s*|\\s*const\\s*)(\\{|$)"
     ]
     type: ["*.c", "*.cc", "*.cpp", "*.h", "*.hh", "*.hpp", "*.inc"]
