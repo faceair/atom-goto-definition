@@ -46,6 +46,10 @@ module.exports =
   getScanOptions: ->
     editor = atom.workspace.getActiveTextEditor()
     word = @getSelectedWord(editor)
+    if not word.trim().length
+      return {
+        message: 'Unknown keyword .'
+      }
     file_path = editor.getPath()
     if not file_path
       return {
