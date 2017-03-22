@@ -88,8 +88,9 @@ module.exports = class Searcher
             return null
         ).filter((x) -> x isnt null))
 
-      run_ripgrep.stderr.on 'data', (error) ->
-        throw error
+      run_ripgrep.stderr.on 'data', (message) ->
+        return if message.includes('No files were searched')
+        throw message
 
       run_ripgrep.on 'close', callback
 
