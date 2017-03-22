@@ -11,6 +11,12 @@ module.exports = class DefinitionsView extends SelectListView
     @panel ?= atom.workspace.addModalPanel({item: this})
     @panel.show()
     @setLoading('Looking for definitions')
+
+    @list.unbind('mouseup')
+    @list.on 'click', 'li', (e) =>
+      @confirmSelection() if $(e.target).closest('li').hasClass('selected')
+      e.preventDefault()
+      return false
     setTimeout(@focusFilterEditor.bind(this), 20)
 
   destroy: ->
