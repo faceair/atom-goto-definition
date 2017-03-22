@@ -3,7 +3,7 @@ module.exports =
     regex: [
       "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\("
       "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*\\{"  # ES6
+      "(^|\\s){word}\\([^\\(]*?\\)\\s*\\{"  # ES6
       "(^|\\s)class\\s+{word}(\\s|$)"
     ]
     type: ["*.jsx", "*.js", "*.html"]
@@ -11,20 +11,20 @@ module.exports =
   CoffeeScript:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|$)"
-      "(^|\\s|\\.|@){word}\\s*[:=]\\s*(\\([\\s\\S]*?\\))?\\s*[=-]>"
+      "(^|\\s|\\.|@){word}\\s*[:=]\\s*(\\([^\\(]*?\\))?\\s*[=-]>"
       "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\(" # JavaScript Function
       "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*\\{"  # ES6
+      "(^|\\s){word}\\([^\\(]*?\\)\\s*\\{"  # ES6
     ]
     type: ["*.coffee", "*.js", "*.html"]
 
   TypeScript:
     regex: [
       "(^|\\s)class\\s+{word}(\\s|$)"
-      "(^|\\s|\\.){word}\\s*[:=]\\s*(\\([\\s\\S]*?\\))?\\s*[=-]>"
+      "(^|\\s|\\.){word}\\s*[:=]\\s*(\\([^\\(]*?\\))?\\s*[=-]>"
       "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\(" # JavaScript Function
       "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([\\s\\S]*?\\)\\s*\\{"  # ES6
+      "(^|\\s){word}\\([^\\(]*?\\)\\s*\\{"  # ES6
     ]
     type: ["*.ts", "*.html"]
 
