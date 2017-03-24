@@ -1,105 +1,106 @@
 module.exports =
   'JavaScript (JSX)':
     regex: [
-      "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\("
-      "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([^\\(]*?\\)\\s*\\{"  # ES6
-      "(^|\\s)class\\s+{word}(\\s|$)"
+      /(^|\s|\.){word}\s*[:=]\s*function\s*\(/,
+      /(^|\s)function\s+{word}\s*\(/
+      /(^|\s)function\s+{word}\s*\(/
+      /(^|\s){word}\([^\(]*?\)\s*\{/  # ES6
+      /(^|\s)class\s+{word}(\s|$)/
     ]
-    type: ["*.jsx", "*.js", "*.html"]
+    type: ['*.jsx', '*.js', '*.html']
 
   CoffeeScript:
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|$)"
-      "(^|\\s|\\.|@){word}\\s*[:=]\\s*(\\([^\\(]*?\\))?\\s*[=-]>"
-      "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\(" # JavaScript Function
-      "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([^\\(]*?\\)\\s*\\{"  # ES6
+      /(^|\s)class\s+{word}(\s|$)/,
+      /(^|\s|\.|@){word}\s*[:=]\s*(\([^\(]*?\))?\s*[=-]>/
+      /(^|\s|\.){word}\s*[:=]\s*function\s*\(/ # JavaScript Function
+      /(^|\s)function\s+{word}\s*\(/
+      /(^|\s){word}\([^\(]*?\)\s*\{/  # ES6
     ]
-    type: ["*.coffee", "*.js", "*.html"]
+    type: ['*.coffee', '*.js', '*.html']
 
   TypeScript:
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|$)"
-      "(^|\\s|\\.){word}\\s*[:=]\\s*(\\([^\\(]*?\\))?\\s*[=-]>"
-      "(^|\\s|\\.){word}\\s*[:=]\\s*function\\s*\\(" # JavaScript Function
-      "(^|\\s)function\\s+{word}\\s*\\("
-      "(^|\\s){word}\\([^\\(]*?\\)\\s*\\{"  # ES6
+      /(^|\s)class\s+{word}(\s|$)/
+      /(^|\s|\.){word}\s*[:=]\s*(\([^\(]*?\))?\s*[=-]>/
+      /(^|\s|\.){word}\s*[:=]\s*function\s*\(/ # JavaScript Function
+      /(^|\s)function\s+{word}\s*\(/
+      /(^|\s){word}\([^\(]*?\)\s*\{/  # ES6
     ]
-    type: ["*.ts", "*.html"]
+    type: ['*.ts', '*.html']
 
   Python:
     regex: [
-      "(^|\\s)class\\s+{word}\\s*\\("
-      "(^|\\s)def\\s+{word}\\s*\\("
+      /(^|\s)class\s+{word}\s*\(/
+      /(^|\s)def\s+{word}\s*\(/
     ]
-    type: ["*.py"]
+    type: ['*.py']
 
   PHP:
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|\\{|$)"
-      "(^|\\s)interface\\s+{word}(\\s|\\{|$)"
-      "(^|\\s)trait\\s+{word}(\\s|\\{|$)"
-      "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
-      "(^|\\s)const\\s+{word}(\\s|=|;|$)"
+      /(^|\s)class\s+{word}(\s|\{|$)/
+      /(^|\s)interface\s+{word}(\s|\{|$)/
+      /(^|\s)trait\s+{word}(\s|\{|$)/
+      /(^|\s)(static\s+)?((public|private|protected)\s+)?(static\s+)?function\s+{word}\s*\(/
+      /(^|\s)const\s+{word}(\s|=|;|$)/
     ]
-    type: ["*.php", "*.php3", "*.phtml"]
+    type: ['*.php', '*.php3', '*.phtml']
 
   ASP:
     regex: [
-      "(^|\\s)(function|sub)\\s+{word}\\s*\\("
+      /(^|\s)(function|sub)\s+{word}\s*\(/
     ]
-    type: ["*.asp"]
+    type: ['*.asp']
 
   Hack:
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|\\{|$)"
-      "(^|\\s)interface\\s+{word}(\\s|\\{|$)"
-      "(^|\\s)(static\\s+)?((public|private|protected)\\s+)?(static\\s+)?function\\s+{word}\\s*\\("
+      /(^|\s)class\s+{word}(\s|\{|$)/
+      /(^|\s)interface\s+{word}(\s|\{|$)/
+      /(^|\s)(static\s+)?((public|private|protected)\s+)?(static\s+)?function\s+{word}\s*\(/
     ]
-    type: ["*.hh"]
+    type: ['*.hh']
 
   Ruby:
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|$)"
-      "(^|\\s)module\\s+{word}(\\s|$)"
-      "(^|\\s)def\\s+(?:self\\.)?{word}\\s*\\(?"
-      "(^|\\s)scope\\s+:{word}\\s*\\(?"
-      "(^|\\s)attr_accessor\\s+:{word}(\\s|$)"
-      "(^|\\s)attr_reader\\s+:{word}(\\s|$)"
-      "(^|\\s)attr_writer\\s+:{word}(\\s|$)"
-      "(^|\\s)define_method\\s+:?{word}\\s*\\(?"
+      /(^|\s)class\s+{word}(\s|$)/
+      /(^|\s)module\s+{word}(\s|$)/
+      /(^|\s)def\s+(?:self\.)?{word}\s*\(?/
+      /(^|\s)scope\s+:{word}\s*\(?/
+      /(^|\s)attr_accessor\s+:{word}(\s|$)/
+      /(^|\s)attr_reader\s+:{word}(\s|$)/
+      /(^|\s)attr_writer\s+:{word}(\s|$)/
+      /(^|\s)define_method\s+:?{word}\s*\(?/
     ]
-    type: ["*.rb", "*.ru", "*.haml", "*.erb", "*.rake"]
+    type: ['*.rb', '*.ru', '*.haml', '*.erb', '*.rake']
 
   Puppet:
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|$)"
+      /(^|\s)class\s+{word}(\s|$)/
     ]
-    type: ["*.pp"]
+    type: ['*.pp']
 
   KRL:
     regex: [
-      "(^|\\s)DEF\\s+{word}\\s*\\("
-      "(^|\\s)DECL\\s+\\w*?{word}\\s*\\=?"
-      "(^|\\s)(SIGNAL|INT|BOOL|REAL|STRUC|CHAR|ENUM|EXT|\\s)\\s*\\w*{word}.*"
+      /(^|\s)DEF\s+{word}\s*\(/
+      /(^|\s)DECL\s+\w*?{word}\s*\=?/
+      /(^|\s)(SIGNAL|INT|BOOL|REAL|STRUC|CHAR|ENUM|EXT|\s)\s*\w*{word}.*/
     ]
-    type: ["*.src", "*.dat"]
+    type: ['*.src', '*.dat']
 
   Perl:
     regex: [
-      "(^|\\s)sub\\s+{word}\\s*\\{"
-      "(^|\\s)package\\s+(\\w+::)*{word}\\s*\\;"
+      /(^|\s)sub\s+{word}\s*\{/
+      /(^|\s)package\s+(\w+::)*{word}\s*\;/
     ]
-    type: ["*.pm", "*.pl"]
+    type: ['*.pm', '*.pl']
 
   'C/C++':
     regex: [
-      "(^|\\s)class\\s+{word}(\\s|:)"
-      "(^|\\s)struct\\s+{word}(\\s|\\{|$)"
-      "(^|\\s)enum\\s+{word}(\\s|\\{|$)"
-      "(^|\\s)#define\\s+{word}(\\s|\\(|$)"
-      "(^|\\s)typedef\\s.*(\\s|\\*|\\(){word}(\\s|;|\\)|$)"
-      "(^|\\s|\\*|:|&){word}\\s*\\(.*\\)(\\s*|\\s*const\\s*)(\\{|$)"
+      /(^|\s)class\s+{word}(\s|:)/
+      /(^|\s)struct\s+{word}(\s|\{|$)/
+      /(^|\s)enum\s+{word}(\s|\{|$)/
+      /(^|\s)#define\s+{word}(\s|\(|$)/
+      /(^|\s)typedef\s.*(\s|\*|\(){word}(\s|;|\)|$)/
+      /(^|\s|\*|:|&){word}\s*\(.*\)(\s*|\s*const\s*)(\{|$)/
     ]
-    type: ["*.c", "*.cc", "*.cpp", "*.h", "*.hh", "*.hpp", "*.inc"]
+    type: ['*.c', '*.cc', '*.cpp', '*.h', '*.hh', '*.hpp', '*.inc']

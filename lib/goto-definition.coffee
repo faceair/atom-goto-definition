@@ -61,7 +61,7 @@ module.exports =
     scan_types = []
     for grammar_name, grammar_option of config
       if grammar_option.type.indexOf(file_extension) isnt -1
-        scan_regex.push.apply(scan_regex, grammar_option.regex)
+        scan_regex.push.apply(scan_regex, grammar_option.regex.map((x) -> x.source))
         scan_types.push.apply(scan_types, grammar_option.type)
 
     if scan_regex.length == 0
