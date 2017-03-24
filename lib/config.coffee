@@ -1,5 +1,6 @@
 module.exports =
   'JavaScript (JSX)':
+    word: /[$0-9a-zA-Z_]+/
     regex: [
       /(^|\s|\.){word}\s*[:=]\s*function\s*\(/,
       /(^|\s)function\s+{word}\s*\(/
@@ -10,6 +11,7 @@ module.exports =
     type: ['*.jsx', '*.js', '*.html']
 
   CoffeeScript:
+    word: /[$0-9a-zA-Z_]+/
     regex: [
       /(^|\s)class\s+{word}(\s|$)/,
       /(^|\s|\.|@){word}\s*[:=]\s*(\([^\(]*?\))?\s*[=-]>/
@@ -20,6 +22,7 @@ module.exports =
     type: ['*.coffee', '*.js', '*.html']
 
   TypeScript:
+    word: /[$0-9a-zA-Z_]+/
     regex: [
       /(^|\s)class\s+{word}(\s|$)/
       /(^|\s|\.){word}\s*[:=]\s*(\([^\(]*?\))?\s*[=-]>/
@@ -30,6 +33,7 @@ module.exports =
     type: ['*.ts', '*.html']
 
   Python:
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)class\s+{word}\s*\(/
       /(^|\s)def\s+{word}\s*\(/
@@ -37,6 +41,7 @@ module.exports =
     type: ['*.py']
 
   PHP:
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)class\s+{word}(\s|\{|$)/
       /(^|\s)interface\s+{word}(\s|\{|$)/
@@ -47,12 +52,14 @@ module.exports =
     type: ['*.php', '*.php3', '*.phtml']
 
   ASP:
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)(function|sub)\s+{word}\s*\(/
     ]
     type: ['*.asp']
 
   Hack:
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)class\s+{word}(\s|\{|$)/
       /(^|\s)interface\s+{word}(\s|\{|$)/
@@ -61,6 +68,7 @@ module.exports =
     type: ['*.hh']
 
   Ruby:
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)class\s+{word}(\s|$)/
       /(^|\s)module\s+{word}(\s|$)/
@@ -74,12 +82,14 @@ module.exports =
     type: ['*.rb', '*.ru', '*.haml', '*.erb', '*.rake']
 
   Puppet:
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)class\s+{word}(\s|$)/
     ]
     type: ['*.pp']
 
   KRL:
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)DEF\s+{word}\s*\(/
       /(^|\s)DECL\s+\w*?{word}\s*\=?/
@@ -88,6 +98,7 @@ module.exports =
     type: ['*.src', '*.dat']
 
   Perl:
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)sub\s+{word}\s*\{/
       /(^|\s)package\s+(\w+::)*{word}\s*\;/
@@ -95,6 +106,7 @@ module.exports =
     type: ['*.pm', '*.pl']
 
   'C/C++':
+    word: /[0-9a-zA-Z_]+/
     regex: [
       /(^|\s)class\s+{word}(\s|:)/
       /(^|\s)struct\s+{word}(\s|\{|$)/

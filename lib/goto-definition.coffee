@@ -37,19 +37,14 @@ module.exports =
       if item and item.items[0].command is 'goto-definition:go'
         atom.contextMenu.itemSets.splice(i, 1)
 
-  getSelectedWord: (editor) ->
+  getSelectedWord: (editor, wordRegex) ->
     return (editor.getSelectedText() or editor.getWordUnderCursor({
-      wordRegex: /[$0-9\w-]+/,
-      includeNonWordCharacters: true
+      wordRegex, includeNonWordCharacters: true
     })).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 
   getScanOptions: ->
     editor = atom.workspace.getActiveTextEditor()
-    word = @getSelectedWord(editor)
-    if not word.trim().length
-      return {
-        message: 'Unknown keyword .'
-      }
+
     file_path = editor.getPath()
     if not file_path
       return {
@@ -59,14 +54,22 @@ module.exports =
 
     scan_regex = []
     scan_types = []
+    word_regex = []
     for grammar_name, grammar_option of config
       if grammar_option.type.indexOf(file_extension) isnt -1
         scan_regex.push.apply(scan_regex, grammar_option.regex.map((x) -> x.source))
         scan_types.push.apply(scan_types, grammar_option.type)
+        word_regex.push(grammar_option.word.source)
 
     if scan_regex.length == 0
       return {
         message: 'This language is not supported . Pull Request Welcome 👏.'
+      }
+
+    word = @getSelectedWord(editor, new RegExp(word_regex.join('|'), 'i'))
+    if not word.trim().length
+      return {
+        message: 'Unknown keyword .'
       }
 
     scan_regex = scan_regex.filter (item, index, arr) -> arr.lastIndexOf(item) is index
@@ -81,7 +84,7 @@ module.exports =
   getProvider: ->
     return {
       providerName:'goto-definition-hyperclick',
-      wordRegExp: /[$0-9\w-]+/g,
+      wordRegExp: /[$0-9a-zA-Z_-]+/g,
       getSuggestionForWord: (textEditor, text, range) => {
         range, callback: () => @go() if text
       }
