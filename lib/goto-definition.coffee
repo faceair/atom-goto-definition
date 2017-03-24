@@ -42,9 +42,7 @@ module.exports =
       wordRegex, includeNonWordCharacters: true
     })).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 
-  getScanOptions: ->
-    editor = atom.workspace.getActiveTextEditor()
-
+  getScanOptions: (editor) ->
     file_path = editor.getPath()
     unless file_path
       return {
@@ -91,7 +89,9 @@ module.exports =
     }
 
   go: ->
-    {regex, file_types, message} = @getScanOptions()
+    editor = atom.workspace.getActiveTextEditor()
+
+    {regex, file_types, message} = @getScanOptions(editor)
     unless regex
       return atom.notifications.addWarning(message)
 
@@ -99,15 +99,17 @@ module.exports =
       @definitionsView.destroy()
     @definitionsView = new DefinitionsView()
     @definitionsView.items = []
-    scan_paths = atom.project.getDirectories().map((x) -> x.path)
+    @status = 'ready'
 
     iterator = (items) =>
+      @status = 'loding'
       if @definitionsView.items.length is 0
         @definitionsView.setItems(items)
       else
         @definitionsView.addItems(items)
 
     callback = () =>
+      @status = 'complete'
       items = @definitionsView.items
       switch items.length
         when 0
@@ -115,6 +117,7 @@ module.exports =
         when 1
           @definitionsView.confirmed(items[0])
 
+    scan_paths = atom.project.getDirectories().map((x) -> x.path)
     if atom.config.get('goto-definition.performanceMode')
       Searcher.ripgrepScan(scan_paths, file_types, regex, iterator, callback)
     else
