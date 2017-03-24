@@ -15,7 +15,9 @@ module.exports = class Searcher
     }
 
   @fixColumn: (match) ->
-    head_empty_chars = /^[\s\.@]/.exec(match.text.substring(match.column))?[0] ? ''
+    if (match.column is 1) and (/^\s/.test(match.text) is false) # ripgrep's bug
+      match.column = 0
+    head_empty_chars = /^[\s\.]/.exec(match.text.substring(match.column))?[0] ? ''
     return {
       text: match.text,
       fileName: match.fileName,
@@ -75,18 +77,15 @@ module.exports = class Searcher
         iterator(results.split("\n").map((result) ->
           if result.trim().length
             data = result.split(":")
-            text = result.substring([data[0], data[1], data[2]].join(":").length + 1)
-            column = Number(data[2])
-            if (column is 1) and (/^\s/.test(text) is false) # ripgrep's bug
-              column = 0
             return {
-              text, column,
+              text: result.substring([data[0], data[1], data[2]].join(":").length + 1)
               fileName: data[0],
-              line: Number(data[1] - 1)
+              line: Number(data[1] - 1),
+              column: Number(data[2])
             }
           else
             return null
-        ).filter((x) -> x isnt null))
+        ).filter((x) -> x isnt null).map(Searcher.fixColumn))
 
       run_ripgrep.stderr.on 'data', (message) ->
         return if message.includes('No files were searched')
