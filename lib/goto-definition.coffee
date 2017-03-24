@@ -1,11 +1,12 @@
+{ CompositeDisposable } = require 'atom'
+
 DefinitionsView = require './definitions-view.coffee'
 Searcher = require './searcher'
-
-config = require './config.coffee'
+Config = require './config.coffee'
 
 module.exports =
   config:
-    rightMenuDisplayAtFirst:
+    contextMenuDisplayAtFirst:
       type: 'boolean'
       default: true
 
@@ -13,29 +14,28 @@ module.exports =
       type: 'boolean'
       default: false
 
-  firstMenu:
-    'atom-workspace atom-text-editor:not(.mini)': [
+  firstContextMenu:
+    'atom-text-editor': [
       { label: 'Goto Definition', command: 'goto-definition:go' }, { type: 'separator' }
     ]
 
-  normalMenu:
-    'atom-workspace atom-text-editor:not(.mini)': [
+  normalContextMenu:
+    'atom-text-editor': [
       { label: 'Goto Definition', command: 'goto-definition:go' }
     ]
 
   activate: ->
-    atom.commands.add 'atom-workspace atom-text-editor:not(.mini)', 'goto-definition:go', @go.bind(this)
+    @subscriptions = new CompositeDisposable
+    @subscriptions.add atom.commands.add 'atom-text-editor', 'goto-definition:go', @go.bind(this)
 
-    if atom.config.get('goto-definition.rightMenuDisplayAtFirst')
-      atom.contextMenu.add @firstMenu
+    if atom.config.get('goto-definition.contextMenuDisplayAtFirst')
+      @subscriptions.add atom.contextMenu.add @firstContextMenu
       atom.contextMenu.itemSets.unshift(atom.contextMenu.itemSets.pop())
     else
-      atom.contextMenu.add @normalMenu
+      @subscriptions.add atom.contextMenu.add @normalContextMenu
 
   deactivate: ->
-    for item, i in atom.contextMenu.itemSets
-      if item and item.items[0].command is 'goto-definition:go'
-        atom.contextMenu.itemSets.splice(i, 1)
+    @subscriptions.dispose()
 
   getSelectedWord: (editor, wordRegex) ->
     return (editor.getSelectedText() or editor.getWordUnderCursor({
@@ -46,28 +46,28 @@ module.exports =
     editor = atom.workspace.getActiveTextEditor()
 
     file_path = editor.getPath()
-    if not file_path
+    unless file_path
       return {
         message: 'This file must be saved to disk .'
       }
-    file_extension = "*." + file_path.split('.').pop()
+    file_extension = '*.' + file_path.split('.').pop()
 
     scan_regex = []
     scan_types = []
     word_regex = []
-    for grammar_name, grammar_option of config
+    for grammar_name, grammar_option of Config
       if grammar_option.type.indexOf(file_extension) isnt -1
         scan_regex.push.apply(scan_regex, grammar_option.regex.map((x) -> x.source))
         scan_types.push.apply(scan_types, grammar_option.type)
         word_regex.push(grammar_option.word.source)
 
-    if scan_regex.length == 0
+    if scan_regex.length is 0
       return {
         message: 'This language is not supported . Pull Request Welcome 👏.'
       }
 
     word = @getSelectedWord(editor, new RegExp(word_regex.join('|'), 'i'))
-    if not word.trim().length
+    unless word.trim().length
       return {
         message: 'Unknown keyword .'
       }
@@ -98,16 +98,17 @@ module.exports =
     if @definitionsView
       @definitionsView.destroy()
     @definitionsView = new DefinitionsView()
+    @definitionsView.items = []
     scan_paths = atom.project.getDirectories().map((x) -> x.path)
 
     iterator = (items) =>
-      if (@definitionsView.items ? []).length is 0
+      if @definitionsView.items.length is 0
         @definitionsView.setItems(items)
       else
         @definitionsView.addItems(items)
 
     callback = () =>
-      items = @definitionsView.items ? []
+      items = @definitionsView.items
       switch items.length
         when 0
           @definitionsView.setItems(items)

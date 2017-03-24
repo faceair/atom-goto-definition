@@ -1,14 +1,10 @@
-'menu': [
-  {
-    label: 'Packages'
+menu: [
+  label: 'Packages'
+  submenu: [
+    label: 'Goto Definition',
     submenu: [
-        label: 'Goto Definition',
-        submenu: [
-              {
-                label: 'Go'
-                command: 'goto-definition:go'
-              }
-          ]
-      ]
-  }
+      label: 'Go'
+      command: 'goto-definition:go'
+    ]
+  ]
 ]

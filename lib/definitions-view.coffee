@@ -1,7 +1,6 @@
 # fork from https://github.com/sadovnychyi/autocomplete-python/blob/master/lib/definitions-view.coffee
 
 {$, $$, SelectListView} = require 'atom-space-pen-views'
-path = require 'path'
 
 module.exports = class DefinitionsView extends SelectListView
   initialize: ->

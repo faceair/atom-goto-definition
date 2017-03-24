@@ -1,5 +1,4 @@
 child_process = require 'child_process'
-path = require 'path'
 
 module.exports = class Searcher
 
@@ -29,7 +28,7 @@ module.exports = class Searcher
     }
 
   @atomWorkspaceScan: (scan_paths, file_types, regex, iterator, callback) ->
-    atom.workspace.scan(new RegExp(regex, 'i'), {paths: file_types}, (result, error) ->
+    atom.workspace.scan(new RegExp(regex, 'i'), { paths: file_types }, (result, error) ->
       items = result.matches.map((match) ->
         if Array.isArray(match.range)
           return {
@@ -52,7 +51,7 @@ module.exports = class Searcher
       if editor.constructor.name is 'TextEditor'
         file_path = editor.getPath()
         if file_path
-          file_extension = "*." + file_path.split('.').pop()
+          file_extension = '*.' + file_path.split('.').pop()
           if file_extension in file_types
             editor.scan new RegExp(regex, 'ig'), (match) ->
               item = Searcher.transformUnsavedMatch(match)
@@ -64,8 +63,8 @@ module.exports = class Searcher
 
   @ripgrepScan: (scan_paths, file_types, regex, iterator, callback) ->
     @atomBufferScan file_types, regex, iterator, (opened_files) ->
-      args = file_types.map((x) -> "--glob=" + x)
-      args.push.apply(args, opened_files.map((x) -> "--glob=!" + x))
+      args = file_types.map((x) -> '--glob=' + x)
+      args.push.apply(args, opened_files.map((x) -> '--glob=!' + x))
       args.push.apply(args, [
         '--line-number', '--column', '--no-ignore-vcs', '--ignore-case',
         regex, scan_paths.join(',')
@@ -77,11 +76,11 @@ module.exports = class Searcher
       run_ripgrep.stderr.setEncoding('utf8')
 
       run_ripgrep.stdout.on 'data', (results) ->
-        iterator(results.split("\n").map((result) ->
+        iterator(results.split('\n').map((result) ->
           if result.trim().length
-            data = result.split(":")
+            data = result.split(':')
             return {
-              text: result.substring([data[0], data[1], data[2]].join(":").length + 1)
+              text: result.substring([data[0], data[1], data[2]].join(':').length + 1),
               fileName: data[0],
               line: Number(data[1] - 1),
               column: Number(data[2])

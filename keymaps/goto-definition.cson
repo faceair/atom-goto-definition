@@ -1,8 +1,8 @@
-'.platform-darwin atom-text-editor:not(.mini)':
+'.platform-darwin atom-text-editor':
   'alt-cmd-enter': 'goto-definition:go'
 
-'.platform-linux atom-text-editor:not(.mini)':
+'.platform-linux atom-text-editor':
   'ctrl-alt-enter': 'goto-definition:go'
 
-'.platform-win32 atom-text-editor:not(.mini)':
+'.platform-win32 atom-text-editor':
   'ctrl-alt-enter': 'goto-definition:go'
