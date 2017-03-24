@@ -14,6 +14,9 @@ module.exports = class Searcher
       column: lines.pop().length
     }
 
+  @filterMatch: (match) ->
+    return match isnt null and match.text.trim().length < 350
+
   @fixColumn: (match) ->
     if (match.column is 1) and (/^\s/.test(match.text) is false) # ripgrep's bug
       match.column = 0
@@ -39,7 +42,7 @@ module.exports = class Searcher
           item = Searcher.transformUnsavedMatch(match)
           item.fileName = result.filePath
           return item
-        ).map(Searcher.fixColumn)
+        ).filter(Searcher.filterMatch).map(Searcher.fixColumn)
       iterator(items)
     ).then(callback)
 
@@ -54,7 +57,7 @@ module.exports = class Searcher
             editor.scan new RegExp(regex, 'ig'), (match) ->
               item = Searcher.transformUnsavedMatch(match)
               item.fileName = file_path
-              iterator([Searcher.fixColumn(item)])
+              iterator([Searcher.fixColumn(item)].filter(Searcher.filterMatch))
           return file_path
       return null
     ).filter((x) -> x isnt null))
@@ -85,7 +88,7 @@ module.exports = class Searcher
             }
           else
             return null
-        ).filter((x) -> x isnt null).map(Searcher.fixColumn))
+        ).filter(Searcher.filterMatch).map(Searcher.fixColumn))
 
       run_ripgrep.stderr.on 'data', (message) ->
         return if message.includes('No files were searched')
