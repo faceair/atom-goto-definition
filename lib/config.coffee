@@ -103,3 +103,24 @@ module.exports =
       "(^|\\s|\\*|:|&){word}\\s*\\(.*\\)(\\s*|\\s*const\\s*)(\\{|$)"
     ]
     type: ["*.c", "*.cc", "*.cpp", "*.h", "*.hh", "*.hpp", "*.inc"]
+
+  Perl6:
+    regex: [
+      "(^|\\s)(class|grammar|module|role)\\s+{word}\\s*\\{"
+      "(^|\\s)(multi|method|sub)\\s+{word}\\s*[({]"
+      "(^|\\s)(sub|multi)\\s+\\w+fix:<{word}>\\s*[({]"
+      "(^|\\s)sub\\s+{&word}\\s*[({]"
+      "(^|\\s)(state|my|constant)\\s+(\\S+\\s+)?(\\\\|&)?{word}\\s*[=;]"
+      "(^|\\s)subset\\s+{word}\\s"
+      "(\\(|\\s)->\\s+(\\S+\\s*,\\s*)*{word}(\\s|\\{|,)"
+    ]
+    type: ["*.pm6","*.pl6", "*.p6"]
+
+  'Clojure/ClojureScript':
+    regex: [
+      "\\(\\s*def\\s+{word}(\\s|\\))"
+      "\\(\\s*def\\s+{@word}(\\s|\\))"
+      "\\(\\s*defn\\s+{word}(\\s|\\[)"
+      "\\(\\s*defmacro\\s+{word}(\\s|\\[)"
+    ]
+    type: ["*.clj","*.cljs"]
