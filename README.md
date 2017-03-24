@@ -1,6 +1,6 @@
 # Goto Definition
 
-[![Build Status](https://travis-ci.org/r-chris/atom-goto-definition.svg?branch=master)](https://travis-ci.org/r-chris/atom-goto-definition)
+[![Build Status](https://travis-ci.org/faceair/atom-goto-definition.svg?branch=master)](https://travis-ci.org/faceair/atom-goto-definition)
 
 ![demo](http://ww1.sinaimg.cn/large/71ef46c1ly1fdt8wgbaiqg20zi0j8hdu.gif)
 
