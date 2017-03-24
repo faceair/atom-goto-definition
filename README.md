@@ -1,6 +1,8 @@
 # Goto Definition
 
-[![Build Status](https://travis-ci.org/faceair/atom-goto-definition.svg?branch=master)](https://travis-ci.org/faceair/atom-goto-definition)
+[![macOS & Linux Build Status](https://travis-ci.org/faceair/atom-goto-definition.svg?branch=master)](https://travis-ci.org/faceair/atom-goto-definition)
+[![Windows Build Status](https://ci.appveyor.com/api/projects/status/q8lttuxttxf69xs4?svg=true)](https://ci.appveyor.com/project/faceair/atom-goto-definition)
+[![dependencies Status](https://david-dm.org/faceair/atom-goto-definition/status.svg)](https://david-dm.org/faceair/atom-goto-definition)
 
 ![demo](http://ww1.sinaimg.cn/large/71ef46c1ly1fdt8wgbaiqg20zi0j8hdu.gif)
 

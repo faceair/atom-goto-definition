@@ -4,7 +4,7 @@
   "description": "Goto definition.",
   "main": "./lib/goto-definition",
   "dependencies": {
-    "atom-space-pen-views": "^2.1.1"
+    "atom-space-pen-views": "^2.2.0"
   },
   "providedServices": {
     "hyperclick.provider": {
@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "apm test"
   },
   "repository": {
     "type": "git",
