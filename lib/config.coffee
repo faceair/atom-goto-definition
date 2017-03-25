@@ -116,3 +116,10 @@ module.exports =
       /(^|\s|\*|:|&){word}\s*\(.*\)(\s*|\s*const\s*)(\{|$)/
     ]
     type: ['*.c', '*.cc', '*.cpp', '*.h', '*.hh', '*.hpp', '*.inc']
+    
+  Shell:
+    word: /[0-9a-zA-Z_]+/
+    regex: [
+      /(^|\s){word}\s*\(\)\s*\{/
+    ]
+    type: ['*.sh']
