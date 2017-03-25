@@ -1,6 +1,18 @@
+fs = require 'fs'
+
 exports.openFile = (filename) ->
   atom.workspace.open(filename).then ->
     atom.packages.activatePackage('goto-definition')
+
+exports.editorSave = ->
+  { editor } = exports.getPackage()
+  return editor.save()
+
+exports.editorDelete = ->
+  { editor } = exports.getPackage()
+  try
+    fs.unlinkSync editor.getPath()
+  catch e
 
 exports.getPackage = ->
   editor = atom.workspace.getActiveTextEditor()
@@ -27,3 +39,9 @@ exports.waitsComplete = ->
         resolve()
         clearInterval(timer)
     , 1
+
+exports.nomalMode = ->
+  return atom.config.set('goto-definition.performanceMode', false)
+
+exports.performanceMode = ->
+  return atom.config.set('goto-definition.performanceMode', true)

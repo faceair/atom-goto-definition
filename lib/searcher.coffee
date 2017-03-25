@@ -27,25 +27,8 @@ module.exports = class Searcher
       column: match.column + head_empty_chars.length
     }
 
-  @atomWorkspaceScan: (scan_paths, file_types, regex, iterator, callback) ->
-    atom.workspace.scan(new RegExp(regex, 'i'), { paths: file_types }, (result, error) ->
-      items = result.matches.map((match) ->
-        if Array.isArray(match.range)
-          return {
-            text: match.lineText,
-            fileName: result.filePath,
-            line: match.range[0][0],
-            column: match.range[0][1]
-          }
-        else
-          item = Searcher.transformUnsavedMatch(match)
-          item.fileName = result.filePath
-          return item
-        ).filter(Searcher.filterMatch).map(Searcher.fixColumn)
-      iterator(items)
-    ).then(callback)
-
   @atomBufferScan: (file_types, regex, iterator, callback) ->
+    # atomBufferScan just search opened files
     panels = atom.workspace.getPaneItems()
     callback(panels.map((editor) ->
       if editor.constructor.name is 'TextEditor'
@@ -60,6 +43,18 @@ module.exports = class Searcher
           return file_path
       return null
     ).filter((x) -> x isnt null))
+
+  @atomWorkspaceScan: (scan_paths, file_types, regex, iterator, callback) ->
+    @atomBufferScan file_types, regex, iterator, (opened_files) ->
+      atom.workspace.scan(new RegExp(regex, 'ig'), { paths: file_types }, (result, error) ->
+        return if opened_files.includes(result.filePath) # atom.workspace.scan can't set exclusions
+        iterator(result.matches.map((match) -> {
+          text: match.lineText,
+          fileName: result.filePath,
+          line: match.range[0][0],
+          column: match.range[0][1]
+        }).filter(Searcher.filterMatch).map(Searcher.fixColumn))
+      ).then(callback)
 
   @ripgrepScan: (scan_paths, file_types, regex, iterator, callback) ->
     @atomBufferScan file_types, regex, iterator, (opened_files) ->
