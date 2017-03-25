@@ -14,6 +14,14 @@ os:
   - linux
   - osx
 
+before_install:
+  - curl https://sh.rustup.rs -sSf | sh -s -- -y
+  - export PATH=$PATH:$HOME/.cargo/bin
+  - rustc -V
+  - cargo -V
+  - cargo install ripgrep
+  - rg -V
+
 ### Generic setup follows ###
 script:
   - curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh

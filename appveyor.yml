@@ -7,6 +7,16 @@ environment:
   - ATOM_CHANNEL: stable
   - ATOM_CHANNEL: beta
 
+install:
+  - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
+  - rustup-init.exe -y
+  - set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
+  - if defined MSYS2_BITS set PATH=%PATH%;C:\msys64\mingw%MSYS2_BITS%\bin
+  - rustc -V
+  - cargo -V
+  - cargo install ripgrep
+  - rg -V
+
 ### Generic setup follows ###
 build_script:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/atom/ci/master/build-package.ps1'))
