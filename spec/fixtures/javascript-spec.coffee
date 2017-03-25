@@ -5,7 +5,9 @@ describe 'JavaScript Goto Definition', ->
 
   beforeEach ->
     waitsForPromise -> helpers.openFile('test.js')
-    runs -> { editor, mainModule } = helpers.getPackage()
+    runs ->
+      { editor, mainModule } = helpers.getPackage()
+      helpers.nomalMode()
 
   it 'no definition', ->
     editor.setText 'hello_world'
@@ -70,6 +72,41 @@ describe 'JavaScript Goto Definition', ->
     expect(mainModule.definitionsView.items[2].text).toContain 'hello_world(x, y) {'
 
   it 'find function and es6 class with saved', ->
+    editor.setText """
+      function hello_world() {
+        return true;
+      }
+      class hello_world {
+        hello_world(x, y) {
+          this.x = x;
+          this.y = y;
+        }
+      }
+      hello_world
+    """
+    helpers.editorSave()
+    editor.setCursorBufferPosition([10, 1])
+
+    expect(helpers.getSelectedWord()).toEqual 'hello_world'
+    expect(helpers.getFileTypes()).toContain '*.js'
+    expect(helpers.sendComand()).toBe true
+
+    waitsForPromise -> helpers.waitsComplete()
+    helpers.editorDelete()
+
+    expect(mainModule.definitionsView.items.length).toEqual 3
+    expect(mainModule.definitionsView.items[0].line).toEqual 0
+    expect(mainModule.definitionsView.items[0].text).toContain 'function hello_world() {'
+
+    expect(mainModule.definitionsView.items[1].line).toEqual 3
+    expect(mainModule.definitionsView.items[1].text).toContain 'class hello_world {'
+
+    expect(mainModule.definitionsView.items[2].line).toEqual 4
+    expect(mainModule.definitionsView.items[2].text).toContain 'hello_world(x, y) {'
+
+  it 'performance mode find function and es6 class with saved', ->
+    helpers.performanceMode()
+
     editor.setText """
       function hello_world() {
         return true;
