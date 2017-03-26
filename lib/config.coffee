@@ -2,8 +2,14 @@ module.exports =
   HtmlTemplete:
     word: /[\$0-9a-zA-Z_]+/
     regexes: []
-    files: ['.html', '*.jsx', '*.vue', '*.jade']
+    files: ['*.html']
     dependencies: ['JavaScript', 'CoffeeScript', 'TypeScript', 'PHP']
+
+  JavaScriptTemplete:
+    word: /[\$0-9a-zA-Z_]+/
+    regexes: []
+    files: ['*.jsx', '*.vue', '*.jade']
+    dependencies: ['JavaScript', 'CoffeeScript', 'TypeScript']
 
   JavaScript:
     word: /[\$0-9a-zA-Z_]+/
