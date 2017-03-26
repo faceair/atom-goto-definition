@@ -50,33 +50,39 @@ module.exports =
       }
     file_extension = '*.' + file_path.split('.').pop()
 
-    scan_regex = []
-    scan_types = []
-    word_regex = []
+    scan_grammars = []
+    scan_regexes = []
+    word_regexes = []
+    scan_files = []
     for grammar_name, grammar_option of Config
-      if grammar_option.type.indexOf(file_extension) isnt -1
-        scan_regex.push.apply(scan_regex, grammar_option.regex.map((x) -> x.source))
-        scan_types.push.apply(scan_types, grammar_option.type)
-        word_regex.push(grammar_option.word.source)
+      if grammar_option.files.includes file_extension
+        (grammar_option.dependencies ? []).map((x) -> scan_grammars.push(x))
+        scan_grammars.push grammar_name
 
-    if scan_regex.length is 0
+    for grammar_name in scan_grammars
+      scan_regexes.push.apply(scan_regexes, Config[grammar_name].regexes.map((x) -> x.source))
+      scan_files.push.apply(scan_files, Config[grammar_name].files)
+      word_regexes.push(grammar_option.word.source)
+
+    if scan_regexes.length is 0
       return {
         message: 'This language is not supported . Pull Request Welcome 👏.'
       }
 
-    word = @getSelectedWord(editor, new RegExp(word_regex.join('|'), 'i'))
+    word_regexes = word_regexes.filter (item, index, arr) -> arr.lastIndexOf(item) is index
+    word = @getSelectedWord(editor, new RegExp(word_regexes.join('|'), 'i'))
     unless word.trim().length
       return {
         message: 'Unknown keyword .'
       }
 
-    scan_regex = scan_regex.filter (item, index, arr) -> arr.lastIndexOf(item) is index
-    scan_types = scan_types.filter (item, index, arr) -> arr.lastIndexOf(item) is index
+    scan_regexes = scan_regexes.filter (item, index, arr) -> arr.lastIndexOf(item) is index
+    scan_files = scan_files.filter (item, index, arr) -> arr.lastIndexOf(item) is index
 
-    regex = scan_regex.join('|').replace(/{word}/g, word)
+    regex = scan_regexes.join('|').replace(/{word}/g, word)
 
     return {
-      regex, file_types: scan_types
+      regex, file_types: scan_files
     }
 
   getProvider: ->
