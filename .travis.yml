@@ -15,11 +15,12 @@ os:
   - osx
 
 before_install:
-  - curl https://sh.rustup.rs -sSf | sh -s -- -y
-  - export PATH=$PATH:$HOME/.cargo/bin
-  - rustc -V
-  - cargo -V
-  - cargo install ripgrep
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ripgrep                           ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then curl https://sh.rustup.rs -sSf | sh -s -- -y ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export PATH=$PATH:$HOME/.cargo/bin           ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rustc -V                                     ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cargo -V                                     ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cargo install ripgrep                        ; fi
   - rg -V
 
 ### Generic setup follows ###
