@@ -7,20 +7,25 @@ module.exports = class DefinitionsView extends SelectListView
     super
     @storeFocusedElement()
     @addClass('symbols-view')
-    @panel ?= atom.workspace.addModalPanel({item: this})
-    @panel.show()
+    @setState('ready')
     @setLoading('Looking for definitions')
+
+    @panel = atom.workspace.addModalPanel({item: this, visible: false})
+    @items = []
 
     @list.unbind('mouseup')
     @list.on 'click', 'li', (e) =>
       @confirmSelection() if $(e.target).closest('li').hasClass('selected')
       e.preventDefault()
       return false
-    setTimeout(@focusFilterEditor.bind(this), 20)
 
-  destroy: ->
-    @cancel()
-    @panel.destroy()
+    setTimeout(@show.bind(this), 300)
+
+  setState: (state) ->
+    return @state = 'ready' if state is 'ready' and not @state
+    return @state = 'loding' if state is 'loding' and @state in ['ready', 'loding']
+    return @state = 'cancelled' if state is 'cancelled' and @state in ['ready', 'loding']
+    throw new Error('state switch error')
 
   viewForItem: ({text, fileName, line, column}) ->
     [_, relativePath] = atom.project.relativizePath(fileName)
@@ -30,28 +35,44 @@ module.exports = class DefinitionsView extends SelectListView
         @div "#{relativePath}, line #{line + 1}", class: 'secondary-line'
 
   addItems: (items) ->
-    for item in items
-      @items.push item
-      itemView = $(@viewForItem(item))
-      itemView.data('select-list-item', item)
-      @list.append(itemView)
+    return unless @state in ['ready', 'loding']
+
+    @setState('loding')
+    if @items.length is 0
+      @setItems(items)
+    else
+      @show()
+      for item in items
+        @items.push item
+        itemView = $(@viewForItem(item))
+        itemView.data('select-list-item', item)
+        @list.append(itemView)
 
   getFilterKey: -> 'fileName'
 
-  getEmptyMessage: (itemCount) ->
-    if itemCount is 0
-      'No definition found'
-    else
-      super
+  showEmpty: ->
+    @show()
+    @setError('No definition found')
+    @setLoading()
+
+  confirmedFirst: ->
+    @confirmed(@items[0]) if @items.length > 0
 
   confirmed: ({fileName, line, column}) ->
-    return unless @panel?.visible
+    return unless @state is 'loding'
     @cancelPosition = null
-    @cancel()
+    @cancelled()
     promise = atom.workspace.open(fileName)
     promise.then (editor) ->
       editor.setCursorBufferPosition([line, column])
       editor.scrollToCursorPosition()
 
+  show: ->
+    if @state in ['ready', 'loding'] and not @panel.visible
+      @panel.show()
+      @focusFilterEditor()
+
   cancelled: ->
-    @panel?.hide()
+    if @state in ['ready', 'loding']
+      @setState('cancelled')
+      @panel.destroy()

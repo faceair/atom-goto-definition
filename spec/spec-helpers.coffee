@@ -35,7 +35,7 @@ exports.waitsComplete = ->
   { mainModule } = exports.getPackage()
   return new Promise (resolve) ->
     timer = setInterval ->
-      if mainModule.status is 'complete'
+      if mainModule.state is 'completed'
         resolve()
         clearInterval(timer)
     , 1

@@ -101,27 +101,21 @@ module.exports =
     unless regex
       return atom.notifications.addWarning(message)
 
-    if @definitionsView
-      @definitionsView.destroy()
+    @definitionsView.cancel() if @definitionsView
     @definitionsView = new DefinitionsView()
-    @definitionsView.items = []
-    @status = 'ready'
+    @state = 'started'
 
     iterator = (items) =>
-      @status = 'loding'
-      if @definitionsView.items.length is 0
-        @definitionsView.setItems(items)
-      else
-        @definitionsView.addItems(items)
+      @state = 'searching'
+      @definitionsView.addItems(items)
 
     callback = () =>
-      @status = 'complete'
-      items = @definitionsView.items
-      switch items.length
+      @state = 'completed'
+      switch  @definitionsView.items.length
         when 0
-          @definitionsView.setItems(items)
+          @definitionsView.showEmpty()
         when 1
-          @definitionsView.confirmed(items[0])
+          @definitionsView.confirmedFirst()
 
     scan_paths = atom.project.getDirectories().map((x) -> x.path)
     if atom.config.get('goto-definition.performanceMode')
