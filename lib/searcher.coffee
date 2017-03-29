@@ -61,9 +61,9 @@ module.exports = class Searcher
       args = file_types.map((x) -> '--glob=' + x)
       args.push.apply(args, opened_files.map((x) -> '--glob=!' + x))
       args.push.apply(args, [
-        '--line-number', '--column', '--no-ignore-vcs', '--ignore-case',
-        regex, scan_paths.join(',')
+        '--line-number', '--column', '--no-ignore-vcs', '--ignore-case', regex
       ])
+      args.push.apply(args, scan_paths)
 
       run_ripgrep = child_process.spawn('rg', args)
 
