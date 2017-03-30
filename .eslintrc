@@ -1,0 +1,18 @@
+{
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "no-plusplus": "off"
+	},
+  "globals": {
+    "atom": false,
+    "waitsForPromise": false,
+    "runs": false,
+    "expect": false,
+  }
+}
