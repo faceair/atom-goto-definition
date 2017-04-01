@@ -1,6 +1,6 @@
 {
   "name": "goto-definition",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Goto definition.",
   "main": "./lib/goto-definition",
   "dependencies": {
