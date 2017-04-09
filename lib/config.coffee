@@ -121,6 +121,6 @@ module.exports =
       "\\(\\s*def\\s+{word}(\\s|\\))"
       "\\(\\s*def\\s+{@word}(\\s|\\))"
       "\\(\\s*defn\\s+{word}(\\s|\\[)"
-      "\\(\\s*defmacro\\s+{word}(\\s|\\[)"
+      "\\(\\s*def\\w+\\s+{word}(\\s|\\[)"
     ]
     type: ["*.clj","*.cljs"]
