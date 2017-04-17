@@ -7,10 +7,12 @@
   "rules": {
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "max-len": ["error", 120]
 	},
   "globals": {
     "atom": false,
+    "document": false,
     "waitsForPromise": false,
     "runs": false,
     "expect": false,

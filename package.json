@@ -4,7 +4,7 @@
   "description": "Goto definition.",
   "main": "./lib/goto-definition",
   "dependencies": {
-    "atom-space-pen-views": "^2.2.0"
+    "atom-select-list": "^0.2.0"
   },
   "providedServices": {
     "hyperclick.provider": {
@@ -22,7 +22,7 @@
     "url": "git+https://github.com/faceair/atom-goto-definition.git"
   },
   "author": "faceair",
-  "license": "GPL",
+  "license": "GPL-2.0",
   "engines": {
     "atom": ">0.50.0"
   },
