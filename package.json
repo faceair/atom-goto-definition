@@ -23,9 +23,6 @@
   },
   "author": "faceair",
   "license": "GPL-2.0",
-  "engines": {
-    "atom": ">0.50.0"
-  },
   "bugs": {
     "url": "https://github.com/faceair/atom-goto-definition/issues"
   },
