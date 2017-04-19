@@ -4,7 +4,8 @@
   "description": "Goto definition.",
   "main": "./lib/goto-definition",
   "dependencies": {
-    "atom-select-list": "^0.2.0"
+    "atom-select-list": "^0.2.0",
+    "etch": "^0.12.2"
   },
   "providedServices": {
     "hyperclick.provider": {

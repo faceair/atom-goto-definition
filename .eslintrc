@@ -16,5 +16,10 @@
     "waitsForPromise": false,
     "runs": false,
     "expect": false,
+  },
+  "settings": {
+    "import/core-modules": [
+      "atom"
+    ]
   }
 }
