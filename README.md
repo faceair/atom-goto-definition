@@ -9,7 +9,7 @@
 * Support for `JavaScript(ES6 && JSX)`, `TypeScript`, `CoffeeScript`, `Python`, `Ruby`, `PHP`, `Hack`, `Perl`, `KRL`, `Erb`, `Haml`, `C/C++`, `Puppet`, `ASP`, `Shell`
 * Works with Mac OSX, Linux and Windows
 * Goto-Definition functionality, by default on `Alt+Cmd+Enter`/`Ctrl+Alt+Enter`
-* Support [hyperclick](https://atom.io/packages/hyperclick), `<cmd-click>` on a word to jump it's declaration
+* Support [hyperclick](https://atom.io/packages/hyperclick), `<cmd-click>` on a word to jump to it's declaration
 
 ## Installing
 Install the package ```goto-definition``` in Atom (Preferences->Install) or use Atom's package manager from a shell:  
@@ -19,20 +19,20 @@ $ apm install goto-definition
 
 ## Performance Mode
 
-Performance mode is 10x faster then nomal model. if you want a better experience, please open the performance mode.
+Performance mode is 10x faster than nomal mode. If you want a better experience, please use the performance mode.
 
 Steps:
 
-1. Install `ripgrep`, see [https://github.com/BurntSushi/ripgrep#installation](https://github.com/BurntSushi/ripgrep#installation). Yeap, now we use `ripgrep` to search definitions, because of it's incredibly fast.
+1. Install `ripgrep`, see [https://github.com/BurntSushi/ripgrep#installation](https://github.com/BurntSushi/ripgrep#installation). Yeap, now we use `ripgrep` to search definitions, because it's incredibly fast.
 2. Turn `Settings -> Packages -> goto-definition -> Settings -> Performance Mode` on.
 3. Enjoy it.
 
-Now the performance model is still testing, welcome suggestions and feedback. If it goes well, we will open the performance mode by default in the next version.
+Please note that performance mode is still under testing, suggestions and feedback are welcome. Performance mode will be activated by default in the next version once it has been tested extensively.
 
 ### Ignoring files
 
-In performance mode, if you want ignore some files, you can create a file called `.ignore` in the root of the project, it working like `.gitignore`.
+You can ignore files while in performace mode by creating a `.ignore` file in the root of your project. Same syntax than `.gitignore`.
 
 ### Notice
 
-* In nomal model, if you want include VCS ignored paths, please turn `Settings -> Exclude VCS Ignored Paths` option off.
+* In normal mode, if you want to include VCS ignored paths, please uncheck `Settings -> Exclude VCS Ignored Paths` option under package preferences.
